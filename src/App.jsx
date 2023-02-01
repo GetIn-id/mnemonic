@@ -1,19 +1,26 @@
-import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen, emit } from "@tauri-apps/api/event";
-import "./App.css";
+import { CircularProgress, Grid, IconButton, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import AssistantIcon from "@mui/icons-material/Assistant";
+import Post from "./components/Post";
+//import AddPost from "../components/AddPost";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
-
   const [speed, setFeed] = useState("");
+
+  const [posts, setPosts] = useState([{name: "post1"}, {name: "post2"}]);
+  const status = "success";
 
   useEffect(() => {
     const unlisten = listen("feed-event", (event) => {
       console.log(event.payload.post)
       setFeed(event.payload.post);
+      // const content = JSON.parse(event.payload.post);
+      // setPosts(content);
     });
 
     return () => {
@@ -22,55 +29,42 @@ function App() {
   }, []);
 
 
-  function sendEvent() {
-    emit("hello-from-frontend", {
-      theMessage: "Tauri is awesome!",
-    });
-  }
+  // function sendEvent() {
+  //   emit("hello-from-frontend", {
+  //     theMessage: "Tauri is awesome!",
+  //   });
+  // }
 
-
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  // async function greet() {
+  //   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  //   setGreetMsg(await invoke("greet", { name }));
+  // }
 
   return (
-    <div className="container">
-      <h1>Welcome to Mnemonic!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <div className="row">
-        <div>
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="button" onClick={() => greet()}>
-            Greet
-          </button>
-          <button type="button" onClick={() => sendEvent()}>
-            SendEvent
-          </button>
-        </div>
-      </div>
-
-      <p>{greetMsg}</p>
-    </div>
+    <Box>
+      <Box borderBottom="1px solid #ccc" padding="8px 20px">
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography variant="h6">Home</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton>
+              <AssistantIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box height="92vh" sx={{ overflowY: "scroll" }}>
+        {/* <AddPost /> */}
+        <Box textAlign="center" marginTop="1rem">
+          {status === "loading" && (
+            <CircularProgress size={20} color="primary" />
+          )}
+        </Box>
+        {status === "success" &&
+          posts.map((post) => <Post key={1} post={post} />)}
+      </Box>
+    </Box>
   );
 }
 
