@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 // import PostDetails from "./pages/PostDetails";
 // import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import PostDetails from "./pages/PostDetails";
 // import axios from "axios";
 // import { setAuth } from "./redux/authSlice";
 
@@ -83,6 +84,7 @@ function App() {
       </Route> */}
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/post" element={<PostDetails />} />
     </Routes>
     </Layout>
   );
