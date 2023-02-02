@@ -21,6 +21,8 @@ import {
   //import { getPosts, updateLike } from "../redux/postSlice";
   import Modal from "./Modal";
   //import { getProfile } from "../redux/authSlice";
+  import profileImage from '../assets/grape.png';
+  import logo from '../assets/logo_lila_logo.png';
   
   export default function Post({ post, profile }) {
 
@@ -56,6 +58,10 @@ import {
           >
             <Grid container flexWrap="nowrap">
               <Grid item sx={{ paddingRight: "1rem" }}>
+              {/* <Link to={`/profile/${post.author._id}`}> */}
+              <Link to={`/profile`}>
+                <img src={profileImage} alt="logo" width="50px" style={{borderRadius: "50%"}} />
+              </Link>
               </Grid>
               <Grid item flexGrow="1">
                 <Box>
@@ -163,9 +169,9 @@ import {
           >
             <Box>
               <Grid container>
-                {/* <Grid item>
-                  <img src="/logo.png" alt="logo" width="60px" />
-                </Grid> */}
+                <Grid item>
+                  <img src={profileImage} alt="logo" width="60px" style={{borderRadius: "50%"}} />
+                </Grid>
                 <Grid item flexGrow="1">
                   <Box padding=".5rem 0">
                     <Input
