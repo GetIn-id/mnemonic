@@ -27,27 +27,17 @@ struct Payload {
 
 // TODO: remove allow lint
 #[allow(dead_code)]
-fn handle_message(
-    relay_url: &String,
-    message: &Message,
-    app_handle: &AppHandle,
-) -> Result<(), String> {
+fn handle_message(relay_url: &String, message: &Message) -> Result<String, String> {
     //println!("Received message from {relay_url}: {:?}", message);
 
     let events = extract_events_ws(message);
     println!("Events: {:?}", events[0].get_content());
-    app_handle
-        .emit_all(
-            "feed-event",
-            Payload {
-                post: events[0].get_content(),
-            },
-        )
-        .unwrap();
+
+    let content = events[0].get_content();
 
     println!("\n");
 
-    Ok(())
+    Ok(content)
 }
 
 fn main() {
@@ -90,12 +80,18 @@ fn main() {
 
             tauri::async_runtime::spawn(async move {
                 println!("Listening...");
+                let events = nostr_clone.lock().unwrap().next_data().unwrap();
+                let mut post = String::from("");
+
+                for (relay_url, message) in events.iter() {
+                    post = handle_message(relay_url, message).unwrap();
+                }
+
                 loop {
-                    let events = nostr_clone.lock().unwrap().next_data().unwrap();
                     sleep(Duration::from_millis(2000)).await;
-                    for (relay_url, message) in events.iter() {
-                        handle_message(relay_url, message, &app_handle).unwrap();
-                    }
+                    app_handle
+                        .emit_all("feed-event", Payload { post: post.clone() })
+                        .unwrap();
                 }
             });
 
