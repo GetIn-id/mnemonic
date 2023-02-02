@@ -15,10 +15,21 @@ import PostDetails from "./pages/PostDetails";
 // import { setAuth } from "./redux/authSlice";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
+  const [loadMsg, setLoadMsg] = useState("");
   const [name, setName] = useState("");
-  const [speed, setFeed] = useState("");
 
+  useEffect(() => {
+    const reactLoaded = async () => {
+      // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+      try {
+      setLoadMsg(await invoke("react_loaded", { value: true }));
+      } catch {
+        console.log("error");
+      }
+      console.log(loadMsg);
+    };
+    reactLoaded();
+  }, []);
   // const dispatch = useDispatch();
   // const { isLoggedIn } = useSelector((state) => state.auth);
 
@@ -36,19 +47,6 @@ function App() {
   //   }
   // }, [dispatch, isLoggedIn]);
 
-  useEffect(() => {
-    const unlisten = listen("feed-event", (event) => {
-      console.log(event.payload.post);
-      setFeed(event.payload.post);
-      // const content = JSON.parse(event.payload.post);
-      // setPosts(content);
-    });
-
-    return () => {
-      unlisten.then((f) => f());
-    };
-  }, []);
-
   // function sendEvent() {
   //   emit("hello-from-frontend", {
   //     theMessage: "Tauri is awesome!",
@@ -62,30 +60,30 @@ function App() {
 
   return (
     <Layout>
-    <Routes>
-      {/* <PrivateRoute exact path="/profile/:id"> */}
-      {/* <PrivateRoute exact path="/profile">
+      <Routes>
+        {/* <PrivateRoute exact path="/profile/:id"> */}
+        {/* <PrivateRoute exact path="/profile">
         <Layout>
           <Profile />
         </Layout>
       </PrivateRoute> */}
-      {/* <PrivateRoute exact path="/posts/:id">
+        {/* <PrivateRoute exact path="/posts/:id">
         <Layout>
           <PostDetails />
         </Layout>
       </PrivateRoute> */}
-      {/* <PrivateRoute exact path="/">
+        {/* <PrivateRoute exact path="/">
         <Layout>
           <Home />
         </Layout>
       </PrivateRoute> */}
-      {/* <Route path="/login">
+        {/* <Route path="/login">
         <Login />
       </Route> */}
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/post" element={<PostDetails />} />
-    </Routes>
+      </Routes>
     </Layout>
   );
 }

@@ -34,7 +34,7 @@ import banner from '../assets/lilabanner.png';
 export default function Profile() {
   const theme = useTheme();
   const status = "success";
-  const [posts, setPosts] = useState([{name: "post1"}, {name: "post2"}]);
+  const [posts, setPosts] = useState([{0: 0, pubkey: "1", created_at: 0, kind: 1, tags: "", content: "dummy content"}]);
 //   const { id } = useParams();
 //   const dispatch = useDispatch();
 //   const { profile, status } = useSelector((state) => state.auth);
@@ -285,7 +285,7 @@ export default function Profile() {
               <Post key={post._id} post={post} profile={true} />
             ))} */}
             {status === "success" &&
-          posts.map((post) => <Post key={1} post={post} />)}
+          posts.map((post) => <Post key={Math.floor(Math.random() * 1500)} post={post} />)}
         </Box>
       )}
     </Box>

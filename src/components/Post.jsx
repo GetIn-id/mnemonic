@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 //import { Box } from "@mui/system";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import fromUnixTime from "date-fns/fromUnixTime";
 import React, { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -99,13 +100,12 @@ export default function Post({ post, profile }) {
                       <Typography
                         sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
                       >
-                        2 min ago
-                        {/* {formatDistanceToNow(new Date(post.createdAt))} */}
+                        {formatDistanceToNow(fromUnixTime(post.created_at))}
                       </Typography>
                     </Box>
                     <Box>
                       <Typography sx={{ fontSize: "15px", color: "#555" }}>
-                        This is the post text
+                        {post.content}
                       </Typography>
                     </Box>
                   </Grid>
