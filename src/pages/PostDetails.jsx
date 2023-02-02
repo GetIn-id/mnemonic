@@ -25,11 +25,17 @@ import { useNavigate, useParams } from "react-router";
 //import { useDispatch, useSelector } from "react-redux";
 //import { getComments, getPostDetails } from "../redux/postSlice";
 //import { addComment, deletePost, likeOrDislikePost } from "../api";
-//import Comment from "../components/Comment";
+import Comment from "../components/Comment";
 import profileImage from "../assets/grape.png";
+import Post from "../components/Post";
 
 export default function PostDetails() {
   const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([
+    { key: 1, name: "comment1" },
+    { key: 2, name: "comment2" }
+  ]);
+  const [posts, setPosts] = useState([{key: 1, name: "post1"}, {key: 2, name: "post2"}]);
   const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,7 +44,7 @@ export default function PostDetails() {
   //   (state) => state.post
   // );
   const status = "success";
-  const commentStatus = "loading";
+  const commentStatus = "success";
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -103,7 +109,12 @@ export default function PostDetails() {
             <Box>
               <Grid container alignItems="center">
                 <Grid item>
-                  <img src={profileImage} alt="avatar" width="60px" style={{borderRadius: "50%"}} />
+                  <img
+                    src={profileImage}
+                    alt="avatar"
+                    width="60px"
+                    style={{ borderRadius: "50%" }}
+                  />
                 </Grid>
                 <Grid item flexGrow="1">
                   <Grid container justifyContent="space-between">
@@ -213,7 +224,12 @@ export default function PostDetails() {
             <Box>
               <Grid container>
                 <Grid item>
-                  <img src={profileImage} alt="logo" width="60px" style={{borderRadius: "50%"}} />
+                  <img
+                    src={profileImage}
+                    alt="logo"
+                    width="60px"
+                    style={{ borderRadius: "50%" }}
+                  />
                 </Grid>
                 <Grid item flexGrow="1">
                   <Box padding=".5rem 0">
@@ -254,6 +270,12 @@ export default function PostDetails() {
                 comments.map((comment) => (
                   <Comment key={comment._id} comment={comment} />
                 ))} */}
+              {commentStatus === "success" &&
+                comments.map((comment) => (
+                  <Comment key={comment.key} comment={comment} />
+                ))}
+                {/* {status === "success" &&
+          posts.map((post) => <Post key={post.key} post={post} />)} */}
             </Box>
           </Box>
         )}
