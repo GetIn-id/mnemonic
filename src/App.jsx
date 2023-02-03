@@ -1,6 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen, emit } from "@tauri-apps/api/event";
-
 //import Login from "./pages/Login";
 import Layout from "./components/Layout";
 import Profile from "./pages/Profile";

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, Typography, useTheme, Box } from "@mui/material";
 import LoginForm from "../components/LoginForm";
-//import RegisterForm from "../components/RegisterForm";
-import logo from "../assets/logo_lila_logo.png";
+import CreateKey from "../components/CreateKey";
+import logo from "../assets/logo.png";
 
 export default function Login() {
-  //const [isLoginForm, setIsLoginForm] = useState(true);
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const theme = useTheme();
   return (
     <Box
@@ -29,31 +29,31 @@ export default function Login() {
           <img
             src={logo}
             alt="Logo"
-            width="60px"
+            width="150px"
             style={{ borderRadius: "50%" }}
           />
         </Box>
-        {/* {isLoginForm ? ( */}
+        {isLoginForm ? (
         <Typography variant="h5">Login to your account</Typography>
-        {/* ) : (
-          <Typography variant="h5">Create a new account</Typography>
-        )} */}
-        {/* {isLoginForm ?  */}
+        ) : (
+          <Typography variant="h5">Create a new profile</Typography>
+        )} 
+        {isLoginForm ? 
         <LoginForm />
-        {/* : <RegisterForm />} */}
-        {/* {isLoginForm ? ( */}
+         : <CreateKey />} 
+         {isLoginForm ? ( 
         <Box textAlign="center" margin=".5rem 0">
-          Don't have an account?{" "}
+          Don't have a profile?{" "}
           <Link
             style={{ textDecoration: "none", cursor: "pointer" }}
-            //   onClick={() => setIsLoginForm(false)}
+           onClick={() => setIsLoginForm(false)}
           >
             Create one
           </Link>
         </Box>
-        {/* ) : (
+         ) : (
           <Box textAlign="center" margin=".5rem 0">
-            Already registered?{" "}
+            Already have a profile?{" "}
             <Link
               style={{ textDecoration: "none", cursor: "pointer" }}
               onClick={() => setIsLoginForm(true)}
@@ -61,7 +61,7 @@ export default function Login() {
               Sign in
             </Link>
           </Box>
-        )} */}
+        )} 
       </Box>
     </Box>
   );

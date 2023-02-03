@@ -36,6 +36,7 @@ export default function LoginForm() {
         type="text"
         required
         name="privateKey"
+        autoCapitalize="false"
       />
       {/* <TextField
           sx={{ width: "100%", margin: "1rem 0", bgcolor: "#fff" }}

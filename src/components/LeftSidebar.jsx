@@ -25,7 +25,7 @@ import Modal from "./Modal";
 import { useNavigate } from "react-router";
 // import { getPosts } from "../redux/postSlice";
 // import { addPost } from "../api";
-import logo from '../assets/logo_lila_logo.png';
+import logo from '../assets/logo.png';
 
 export default function LeftSidebar() {
   const theme = useTheme();
@@ -67,7 +67,7 @@ export default function LeftSidebar() {
               backgroundColor: "inherit",
             }}
           >
-            <img src={logo} alt="logo" width="50px" />
+            <img src={logo} alt="logo" width="75px" style={{ borderRadius: "50%" }} />
           </Link>
         </Box>
         <List>
