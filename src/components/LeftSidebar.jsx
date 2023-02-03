@@ -26,6 +26,7 @@ import { useNavigate } from "react-router";
 // import { getPosts } from "../redux/postSlice";
 // import { addPost } from "../api";
 import logo from '../assets/logo.png';
+import profileImage from "../assets/grape.png";
 
 export default function LeftSidebar() {
   const theme = useTheme();
@@ -237,7 +238,7 @@ export default function LeftSidebar() {
           <Box>
             <Grid container>
               <Grid item>
-                <img src={logo} alt="logo" width="60px" />
+                <img src={profileImage} alt="logo" width="60px" style={{ borderRadius: "50%" }} />
               </Grid>
               <Grid item flexGrow="1">
                 <Box padding=".5rem 0">

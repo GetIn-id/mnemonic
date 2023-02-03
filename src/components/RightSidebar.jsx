@@ -3,14 +3,14 @@ import { Input, Typography, Grid, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 //import { useDispatch, useSelector } from "react-redux";
-//import WhoToFollow from "./WhoToFollow";
+import WhoToFollow from "./WhoToFollow";
 import { Link } from "react-router-dom";
 //import { getFollowings } from "../redux/followSlice";
 
 export default function RightSidebar() {
   const [query, setQuery] = React.useState("");
-  const userStatus = "loading";
-  const followingStatus = "loading";
+  const userStatus = "success";
+  const followingStatus = "success";
   //const { _id } = JSON.parse(localStorage.getItem("login"));
   //const dispatch = useDispatch();
   //const { users, userStatus } = useSelector((state) => state.auth);
@@ -161,6 +161,7 @@ export default function RightSidebar() {
               <CircularProgress size={20} color="primary" />
             )}
           </Box>
+          <WhoToFollow />
           {/* {userStatus === "success" &&
             showToFollow()
               .slice(0, 7)
