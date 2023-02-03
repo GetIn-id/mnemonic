@@ -22,13 +22,15 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 // import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import Modal from "./Modal";
+import { useNavigate } from "react-router";
 // import { getPosts } from "../redux/postSlice";
 // import { addPost } from "../api";
-import logo from '../assets/logo_lila_logo.png';
+import logo from '../assets/logo.png';
+import profileImage from "../assets/grape.png";
 
 export default function LeftSidebar() {
   const theme = useTheme();
-
+  const navigate = useNavigate();
 //   const dispatch = useDispatch();
 //   const { _id } = JSON.parse(localStorage.getItem("login"));
 
@@ -39,6 +41,10 @@ export default function LeftSidebar() {
 
   const handleModalOpen = () => {
     setOpenModal(true);
+  };
+
+  const navigateLogin = () => {
+    navigate("/");
   };
 
   const [postText, setPostText] = React.useState("");
@@ -55,19 +61,19 @@ export default function LeftSidebar() {
       <Box sx={{ height: "100vh", maxWidth: "100%" }}>
         <Box textAlign="center">
           <Link
-            to="/"
+            to="/home"
             style={{
               textDecoration: "none",
               color: "inherit",
               backgroundColor: "inherit",
             }}
           >
-            <img src={logo} alt="logo" width="50px" />
+            <img src={logo} alt="logo" width="75px" style={{ borderRadius: "50%" }} />
           </Link>
         </Box>
         <List>
           <NavLink
-            to="/"
+            to="/home"
             style={{
               textDecoration: "none",
               color: "inherit",
@@ -171,9 +177,10 @@ export default function LeftSidebar() {
               borderRadius: "28px",
               margin: ".5rem 0",
             }}
-            // onClick={() => {
-            //   dispatch(logout());
-            // }}
+            onClick={() => {
+              //dispatch(logout());
+              navigateLogin();
+            }}
           >
             <ListItemIcon>
               <LogoutIcon fontSize="medium" color="action" />
@@ -231,7 +238,7 @@ export default function LeftSidebar() {
           <Box>
             <Grid container>
               <Grid item>
-                <img src={logo} alt="logo" width="60px" />
+                <img src={profileImage} alt="logo" width="60px" style={{ borderRadius: "50%" }} />
               </Grid>
               <Grid item flexGrow="1">
                 <Box padding=".5rem 0">

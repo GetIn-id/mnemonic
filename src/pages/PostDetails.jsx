@@ -89,7 +89,7 @@ export default function PostDetails() {
       <Box borderBottom="1px solid #ccc" padding="8px 20px">
         <Grid container alignItems="center">
           <Grid item sx={{ mr: "10px" }}>
-            <IconButton onClick={() => navigate("/")}>
+            <IconButton onClick={() => navigate("/home")}>
               <ArrowBackIcon />
             </IconButton>
           </Grid>
