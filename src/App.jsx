@@ -1,76 +1,90 @@
-import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import { listen, emit } from "@tauri-apps/api/event";
-import "./App.css";
+
+//import Login from "./pages/Login";
+import Layout from "./components/Layout";
+import Profile from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
+import { Route, Routes } from "react-router";
+import Home from "./pages/Home";
+// import PostDetails from "./pages/PostDetails";
+// import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import PostDetails from "./pages/PostDetails";
+// import axios from "axios";
+// import { setAuth } from "./redux/authSlice";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
+  const [loadMsg, setLoadMsg] = useState("");
   const [name, setName] = useState("");
 
-  const [speed, setFeed] = useState("");
-
   useEffect(() => {
-    const unlisten = listen("feed-event", (event) => {
-      console.log(event.payload.post)
-      setFeed(event.payload.post);
-    });
-
-    return () => {
-      unlisten.then((f) => f());
+    const reactLoaded = async () => {
+      // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+      try {
+      setLoadMsg(await invoke("react_loaded", { value: true }));
+      } catch {
+        console.log("error");
+      }
+      console.log(loadMsg);
     };
+    reactLoaded();
   }, []);
+  // const dispatch = useDispatch();
+  // const { isLoggedIn } = useSelector((state) => state.auth);
 
+  // useEffect(() => {
+  //   if ("login" in localStorage) {
+  //     const login = JSON.parse(localStorage.getItem("login"));
+  //     axios.defaults.headers.common["authorization"] = `Bearer ${login.token}`;
+  //   }
+  // }, [isLoggedIn]);
 
-  function sendEvent() {
-    emit("hello-from-frontend", {
-      theMessage: "Tauri is awesome!",
-    });
-  }
+  // useEffect(() => {
+  //   const { isLoggedIn } = JSON.parse(localStorage.getItem("login")) || {};
+  //   if (isLoggedIn) {
+  //     dispatch(setAuth({ isLoggedIn }));
+  //   }
+  // }, [dispatch, isLoggedIn]);
 
+  // function sendEvent() {
+  //   emit("hello-from-frontend", {
+  //     theMessage: "Tauri is awesome!",
+  //   });
+  // }
 
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  // async function greet() {
+  //   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  //   setGreetMsg(await invoke("greet", { name }));
+  // }
 
   return (
-    <div className="container">
-      <h1>Welcome to Mnemonic!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <div className="row">
-        <div>
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="button" onClick={() => greet()}>
-            Greet
-          </button>
-          <button type="button" onClick={() => sendEvent()}>
-            SendEvent
-          </button>
-        </div>
-      </div>
-
-      <p>{greetMsg}</p>
-    </div>
+    <Layout>
+      <Routes>
+        {/* <PrivateRoute exact path="/profile/:id"> */}
+        {/* <PrivateRoute exact path="/profile">
+        <Layout>
+          <Profile />
+        </Layout>
+      </PrivateRoute> */}
+        {/* <PrivateRoute exact path="/posts/:id">
+        <Layout>
+          <PostDetails />
+        </Layout>
+      </PrivateRoute> */}
+        {/* <PrivateRoute exact path="/">
+        <Layout>
+          <Home />
+        </Layout>
+      </PrivateRoute> */}
+        {/* <Route path="/login">
+        <Login />
+      </Route> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/post" element={<PostDetails />} />
+      </Routes>
+    </Layout>
   );
 }
 

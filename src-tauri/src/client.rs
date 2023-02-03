@@ -25,7 +25,10 @@ impl ClientWrapper {
         }
     }
 
-    pub async fn init(&mut self) {}
+    pub async fn init(&mut self) {
+        self.subscribe().await;
+        self.read_messages().await;
+    }
 
     fn handle_message(&self, relay_url: &String, message: &Message) -> Result<(), String> {
         println!("Received message from {}: {:?}", relay_url, message);
