@@ -22,13 +22,14 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 // import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import Modal from "./Modal";
+import { useNavigate } from "react-router";
 // import { getPosts } from "../redux/postSlice";
 // import { addPost } from "../api";
 import logo from '../assets/logo_lila_logo.png';
 
 export default function LeftSidebar() {
   const theme = useTheme();
-
+  const navigate = useNavigate();
 //   const dispatch = useDispatch();
 //   const { _id } = JSON.parse(localStorage.getItem("login"));
 
@@ -39,6 +40,10 @@ export default function LeftSidebar() {
 
   const handleModalOpen = () => {
     setOpenModal(true);
+  };
+
+  const navigateLogin = () => {
+    navigate("/");
   };
 
   const [postText, setPostText] = React.useState("");
@@ -55,7 +60,7 @@ export default function LeftSidebar() {
       <Box sx={{ height: "100vh", maxWidth: "100%" }}>
         <Box textAlign="center">
           <Link
-            to="/"
+            to="/home"
             style={{
               textDecoration: "none",
               color: "inherit",
@@ -67,7 +72,7 @@ export default function LeftSidebar() {
         </Box>
         <List>
           <NavLink
-            to="/"
+            to="/home"
             style={{
               textDecoration: "none",
               color: "inherit",
@@ -171,9 +176,10 @@ export default function LeftSidebar() {
               borderRadius: "28px",
               margin: ".5rem 0",
             }}
-            // onClick={() => {
-            //   dispatch(logout());
-            // }}
+            onClick={() => {
+              //dispatch(logout());
+              navigateLogin();
+            }}
           >
             <ListItemIcon>
               <LogoutIcon fontSize="medium" color="action" />

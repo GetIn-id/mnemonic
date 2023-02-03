@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 // import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PostDetails from "./pages/PostDetails";
+import Login from "./pages/Login";
 // import axios from "axios";
 // import { setAuth } from "./redux/authSlice";
 
@@ -22,7 +23,7 @@ function App() {
     const reactLoaded = async () => {
       // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
       try {
-      setLoadMsg(await invoke("react_loaded", { value: true }));
+        setLoadMsg(await invoke("react_loaded", { value: true }));
       } catch {
         console.log("error");
       }
@@ -59,32 +60,53 @@ function App() {
   // }
 
   return (
-    <Layout>
-      <Routes>
-        {/* <PrivateRoute exact path="/profile/:id"> */}
-        {/* <PrivateRoute exact path="/profile">
+    <Routes>
+      {/* <PrivateRoute exact path="/profile/:id"> */}
+      {/* <PrivateRoute exact path="/profile">
         <Layout>
           <Profile />
         </Layout>
       </PrivateRoute> */}
-        {/* <PrivateRoute exact path="/posts/:id">
+      {/* <PrivateRoute exact path="/posts/:id">
         <Layout>
           <PostDetails />
         </Layout>
       </PrivateRoute> */}
-        {/* <PrivateRoute exact path="/">
+      {/* <PrivateRoute exact path="/">
         <Layout>
           <Home />
         </Layout>
       </PrivateRoute> */}
-        {/* <Route path="/login">
+      {/* <Route path="/login">
         <Login />
       </Route> */}
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/post" element={<PostDetails />} />
-      </Routes>
-    </Layout>
+      <Route path="/" element={<Login />} />
+
+      <Route
+        path="/home"
+        element={
+          <Layout>
+            <Home />
+          </Layout>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <Layout>
+            <Profile />
+          </Layout>
+        }
+      />
+      <Route
+        path="/post"
+        element={
+          <Layout>
+            <PostDetails />
+          </Layout>
+        }
+      />
+    </Routes>
   );
 }
 
