@@ -1,13 +1,7 @@
 use dotenv::dotenv;
-use nostr_rust::{
-    events::extract_events_ws,
-    nostr_client::{self, Client},
-    req::ReqFilter,
-    Identity, Message,
-};
-use std::{str::FromStr, sync::Arc, sync::Mutex, thread, time::Duration};
-use tauri::{AppHandle, Manager};
-use tokio::time::sleep;
+use nostr_rust::Identity;
+use std::str::FromStr;
+use tauri::Manager;
 
 mod client;
 use client::ClientWrapper;
@@ -29,21 +23,6 @@ struct Payload {
     post: String,
 }
 
-// TODO: remove allow lint
-#[allow(dead_code)]
-fn handle_message(relay_url: &String, message: &Message) -> Result<String, String> {
-    //println!("Received message from {relay_url}: {:?}", message);
-
-    let events = extract_events_ws(message);
-    println!("Events: {:?}", events[0].get_content());
-
-    let content = events[0].get_content();
-
-    println!("\n");
-
-    Ok(content)
-}
-
 fn main() {
     // Load .env file
     dotenv().ok();
@@ -53,7 +32,7 @@ fn main() {
             let app_handle = app.app_handle();
             // TODO: How should we really load nost private key
             let private_key = std::env::var("NOSTR_PRIVATE_KEY").unwrap();
-            let public_key = std::env::var("NOSTR_PUBLIC_KEY").unwrap();
+            let _public_key = std::env::var("NOSTR_PUBLIC_KEY").unwrap();
 
             let my_identity = Identity::from_str(&private_key).unwrap();
 
