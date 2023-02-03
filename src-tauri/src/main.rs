@@ -54,9 +54,7 @@ fn main() {
 
             let _my_identity = Identity::from_str(&private_key).unwrap();
 
-            let nostr_client = Arc::new(Mutex::new(
-                Client::new(vec!["wss://relay.snort.social"]).unwrap(),
-            ));
+            let nostr_client = Arc::new(Mutex::new(Client::new(vec!["wss://nos.lol"]).unwrap()));
 
             let _subscription_id = nostr_client
                 .lock()
