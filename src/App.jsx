@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 function App() {
   const [loadMsg, setLoadMsg] = useState("");
   const [name, setName] = useState("");
+  const [post, setPost] = useState("");
 
   useEffect(() => {
     const reactLoaded = async () => {
@@ -29,6 +30,16 @@ function App() {
       console.log(loadMsg);
     };
     reactLoaded();
+
+    const unlisten = listen("feed-event", (event) => {
+      console.log(event.payload.content)
+      setPost(event.payload.content);
+    });
+
+    return () => {
+      unlisten.then((f) => f());
+    };
+
   }, []);
   // const dispatch = useDispatch();
   // const { isLoggedIn } = useSelector((state) => state.auth);
