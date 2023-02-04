@@ -34,7 +34,16 @@ import banner from '../assets/lilabanner.png';
 export default function Profile() {
   const theme = useTheme();
   const status = "success";
-  const [posts, setPosts] = useState([{0: 0, pubkey: "1", created_at: 0, kind: 1, tags: "", content: "dummy content"}]);
+  const [posts, setPosts] = useState([
+    {content: `[
+      0,
+      "",
+      0,
+      1,
+      "",
+      "dummy content"
+  ]`},
+  ]);
 //   const { id } = useParams();
 //   const dispatch = useDispatch();
 //   const { profile, status } = useSelector((state) => state.auth);

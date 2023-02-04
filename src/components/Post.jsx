@@ -28,7 +28,6 @@ import logo from "../assets/logo_lila_logo.png";
 
 export default function Post({ post, profile }) {
   const [commentText, setCommentText] = useState("");
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -46,6 +45,8 @@ export default function Post({ post, profile }) {
   const handleModalOpen = () => {
     setOpenModal(true);
   };
+
+  const jsonEvent = JSON.parse(post.content);
   return (
     <>
       <Box
@@ -100,12 +101,12 @@ export default function Post({ post, profile }) {
                       <Typography
                         sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
                       >
-                        {formatDistanceToNow(fromUnixTime(post.created_at))}
+                        {formatDistanceToNow(fromUnixTime(jsonEvent[2]))}
                       </Typography>
                     </Box>
                     <Box>
                       <Typography sx={{ fontSize: "15px", color: "#555" }}>
-                        {post.content}
+                        {jsonEvent[5]}
                       </Typography>
                     </Box>
                   </Grid>

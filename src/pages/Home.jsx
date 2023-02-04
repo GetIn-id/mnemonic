@@ -10,14 +10,14 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 export default function Home() {
   const [posts, setPosts] = useState([
-    {
-      0: 0,
-      pubkey: "",
-      created_at: 0,
-      kind: 1,
-      tags: "",
-      content: "dummy content",
-    },
+    {content: `[
+      0,
+      "",
+      0,
+      1,
+      "",
+      "dummy content"
+  ]`},
   ]);
   const status = "success";
 
@@ -54,21 +54,21 @@ export default function Home() {
   //   };
   // }, []);
 
-  // useEffect(() => {
-  //   const loadHomeFeed = async () => {
-  //     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-  //     try {
-  //       setPosts(await invoke("load_home_feed", { value: true }));
-  //     } catch {
-  //       console.log("error - couldnt load home feed");
-  //     }
-  //     //console.log(loadMsg);
-  //   };
-  //   loadHomeFeed();
+  useEffect(() => {
+    const loadHomeFeed = async () => {
+      // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+      try {
+        const content = await invoke("load_home_feed", { value: true });
+        setPosts(content.posts);
+      } catch {
+        console.log("error - couldnt load home feed");
+      }
+      //console.log(loadMsg);
+    };
+    loadHomeFeed();
+  }, []);
 
-  // }, []);
 
-  console.log(posts);
   return (
     <Box>
       <Box borderBottom="1px solid #ccc" padding="3vh 20px">
