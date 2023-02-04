@@ -105,9 +105,9 @@ export default function Profile() {
 
   return (
     <Box>
-      <Box borderBottom="1px solid #ccc" padding="8px 20px">
+      <Box borderBottom="1px solid #ccc" padding="2vh 20px">
         <Grid container alignItems="center">
-          <Grid item sx={{ mr: "10px" }}>
+          <Grid item sx={{ mr: "15px" }}>
             <RouteLink to="/home">
               <IconButton>
                 <ArrowBackIcon />
@@ -137,24 +137,24 @@ export default function Profile() {
         )}
       </Box>
       {status === "success" && (
-        <Box height="90vh" sx={{ overflowY: "scroll" }}>
+        <Box height="87vh" sx={{ overflowY: "scroll" }}>
           <Box position="relative">
             <img
               width="100%"
               src={banner}
               alt="background"
-              style={{maxHeight: "300px"}}
+              style={{maxHeight: "250px"}}
             />
             <Box
               sx={{
                 position: "absolute",
-                top: 200,
+                top: 175,
                 left: 15,
                 background: "#eee",
                 borderRadius: "50%",
               }}
             >
-              <img width="150px" src={profile} alt="profile" style={{borderRadius: "50%"}} />
+              <img width="125px" src={profile} alt="profile" style={{borderRadius: "50%"}} />
             </Box>
           </Box>
           <Box textAlign="right" padding="10px 20px">

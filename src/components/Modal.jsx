@@ -4,7 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, useTheme } from "@mui/system";
 export default function Modal({
@@ -24,7 +24,7 @@ export default function Modal({
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
       <DialogTitle>
         <Box textAlign="right" borderBottom="1px solid #ccc">
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleClose} style={{marginBottom: "15px"}} >
             <CloseIcon />
           </IconButton>
         </Box>
@@ -35,7 +35,7 @@ export default function Modal({
           disabled={len === 0}
           variant="contained"
           color="primary"
-          size="small"
+          size="large"
           sx={{
             borderRadius: theme.shape.borderRadius,
             fontSize: "12px",
