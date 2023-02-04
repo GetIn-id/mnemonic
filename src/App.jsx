@@ -27,18 +27,18 @@ function App() {
       } catch {
         console.log("error");
       }
-      console.log(loadMsg);
+      //console.log(loadMsg);
     };
     reactLoaded();
 
-    const unlisten = listen("feed-event", (event) => {
-      console.log(event.payload.content)
-      setPost(event.payload.content);
-    });
+    // const unlisten = listen("feed-event", (event) => {
+    //   console.log(event.payload.content)
+    //   setPost(event.payload.content);
+    // });
 
-    return () => {
-      unlisten.then((f) => f());
-    };
+    // return () => {
+    //   unlisten.then((f) => f());
+    // };
 
   }, []);
   // const dispatch = useDispatch();

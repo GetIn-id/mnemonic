@@ -27,32 +27,47 @@ export default function Home() {
   //     dispatch(getPosts());
   //   }, [dispatch]);
 
-  useEffect(() => {
-    const unlisten = listen("feed-event", (event) => {
-      //console.log(event.payload.post);
-      const jsonEvent = JSON.parse(event.payload.post);
-      const ZERO = 0;
-      const PUBKEY = 1;
-      const CREATED_AT = 2;
-      const KIND = 3;
-      const TAGS = 4;
-      const CONTENT = 5;
-      setPosts([
-        {
-          0: jsonEvent[ZERO],
-          pubkey: jsonEvent[PUBKEY],
-          created_at: jsonEvent[CREATED_AT],
-          kind: jsonEvent[KIND],
-          tags: jsonEvent[TAGS],
-          content: jsonEvent[CONTENT],
-        },
-      ]);
-    });
+  // useEffect(() => {
+  //   const unlisten = listen("feed-event", (event) => {
+  //     console.log(event.payload.post);
+  //     const jsonEvent = JSON.parse(event.payload.post);
+  //     const ZERO = 0;
+  //     const PUBKEY = 1;
+  //     const CREATED_AT = 2;
+  //     const KIND = 3;
+  //     const TAGS = 4;
+  //     const CONTENT = 5;
+  //     setPosts([
+  //       {
+  //         0: jsonEvent[ZERO],
+  //         pubkey: jsonEvent[PUBKEY],
+  //         created_at: jsonEvent[CREATED_AT],
+  //         kind: jsonEvent[KIND],
+  //         tags: jsonEvent[TAGS],
+  //         content: jsonEvent[CONTENT],
+  //       },
+  //     ]);
+  //   });
 
-    return () => {
-      unlisten.then((f) => f());
+  //   return () => {
+  //     unlisten.then((f) => f());
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    const loadHomeFeed = async () => {
+      // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+      try {
+        setPosts(await invoke("load_home_feed", { value: true }));
+      } catch {
+        console.log("error - couldnt load home feed");
+      }
+      //console.log(loadMsg);
     };
+    loadHomeFeed();
+
   }, []);
+
   console.log(posts);
   return (
     <Box>
