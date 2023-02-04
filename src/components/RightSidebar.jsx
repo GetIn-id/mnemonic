@@ -1,96 +1,71 @@
-import { Search } from "@mui/icons-material";
-import { Input, Typography, Grid, CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useEffect } from "react";
-//import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { Typography, Box, TextField, FormControl } from "@mui/material";
 import WhoToFollow from "./WhoToFollow";
-import { Link } from "react-router-dom";
-//import { getFollowings } from "../redux/followSlice";
 
 export default function RightSidebar() {
-  const [query, setQuery] = React.useState("");
+  const [query, setQuery] = useState("");
   const userStatus = "success";
   const followingStatus = "success";
+
   //const { _id } = JSON.parse(localStorage.getItem("login"));
   //const dispatch = useDispatch();
   //const { users, userStatus } = useSelector((state) => state.auth);
   //const { followingStatus, followings } = useSelector((state) => state.follow);
-//   function queriedUsers() {
-//     return users.filter(
-//       (user) =>
-//         user.name.toLowerCase().includes(query.toLowerCase()) ||
-//         user.handle.toLowerCase().includes(query.toLowerCase())
-//     );
-//   }
+  //   function queriedUsers() {
+  //     return users.filter(
+  //       (user) =>
+  //         user.name.toLowerCase().includes(query.toLowerCase()) ||
+  //         user.handle.toLowerCase().includes(query.toLowerCase())
+  //     );
+  //   }
 
-//   useEffect(() => {
-//     dispatch(getFollowings(_id));
-//   }, [dispatch, _id]);
+  //   useEffect(() => {
+  //     dispatch(getFollowings(_id));
+  //   }, [dispatch, _id]);
 
-//   function showToFollow() {
-//     const filtered = users.filter((user) => user._id !== _id);
+  //   function showToFollow() {
+  //     const filtered = users.filter((user) => user._id !== _id);
 
-//     return filtered.filter((item) => {
-//       const index = followings.findIndex(
-//         (follow) => follow.followingId === item._id
-//       );
-//       if (index !== -1) {
-//         return false;
-//       }
-//       return true;
-//     });
-//   }
+  //     return filtered.filter((item) => {
+  //       const index = followings.findIndex(
+  //         (follow) => follow.followingId === item._id
+  //       );
+  //       if (index !== -1) {
+  //         return false;
+  //       }
+  //       return true;
+  //     });
+  //   }
 
   return (
-    <Box sx={{ height: "100%" }}>
-      <Box paddingTop="10px">
+    <Box>
+      <FormControl>
+        <TextField
+          style={{ marginTop: "20px", marginLeft: "0px", minWidth: "330px" }}
+          size="normal"
+          variant="outlined"
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+          label="Search profiles, notes, etc.."
+        />
+      </FormControl>
+      {query.length !== 0 && (
         <Box
-          width="100%"
-          borderRadius="28px"
-          border="1px solid #eee"
-          position="relative"
+          width="340px"
           sx={{
-            background: "#eee",
+            backgroundColor: "white",
+            border: "1px solid #eee",
+            borderRadius: "28px",
+            padding: "1rem 0",
+            zIndex: "999",
+            maxHeight: "50vh",
+            overflowY: "scroll",
           }}
+          position="absolute"
         >
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            type="text"
-            inputProps={{
-              style: { padding: "10px" },
-            }}
-            disableUnderline
-            fullWidth
-            placeholder="Search"
-            startAdornment={
-              <Search
-                sx={{
-                  paddingLeft: "20px",
-                  color: "#777",
-                }}
-              />
-            }
-          />
-          {query.length !== 0 && (
-            <Box
-              width="100%"
-              sx={{
-                backgroundColor: "white",
-                border: "1px solid #eee",
-                borderRadius: "28px",
-                padding: "1rem 0",
-                zIndex: "999",
-                maxHeight: "50vh",
-                overflowY: "scroll",
-              }}
-              position="absolute"
-            >
-              {/* {query.length !== 0 && queriedUsers().length === 0 && ( */}
-                <Typography sx={{ padding: "0 1rem" }}>
-                  No users found!
-                </Typography>
-              {/* )}
+          {/* {query.length !== 0 && queriedUsers().length === 0 && ( */}
+          <Typography sx={{ padding: "0 1rem" }}>No users found!</Typography>
+          {/* )}
               {queriedUsers().map((user) => (
                 <Box key={user._id}>
                   <Link
@@ -142,31 +117,29 @@ export default function RightSidebar() {
                   </Link>
                 </Box>
               ))} */}
-            </Box>
+        </Box>
+      )}
+      <Box
+        sx={{
+          background: "#eee",
+          borderRadius: "28px",
+          padding: "10px 20px",
+          margin: "1rem 0",
+        }}
+      >
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          Who to follow
+        </Typography>
+        <Box textAlign="center" marginTop="1rem">
+          {(userStatus === "loading" || followingStatus === "loading") && (
+            <CircularProgress size={20} color="primary" />
           )}
         </Box>
-        <Box
-          sx={{
-            background: "#eee",
-            borderRadius: "28px",
-            padding: "10px 20px",
-            margin: "1rem 0",
-          }}
-        >
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            Who to follow
-          </Typography>
-          <Box textAlign="center" marginTop="1rem">
-            {(userStatus === "loading" || followingStatus === "loading") && (
-              <CircularProgress size={20} color="primary" />
-            )}
-          </Box>
-          <WhoToFollow />
-          {/* {userStatus === "success" &&
+        <WhoToFollow />
+        {/* {userStatus === "success" &&
             showToFollow()
               .slice(0, 7)
               .map((item) => <WhoToFollow key={item._id} user={item} />)} */}
-        </Box>
       </Box>
     </Box>
   );
