@@ -86,15 +86,15 @@ impl ClientWrapper {
                 vec![ReqFilter {
                     ids: None,
                     authors: Some(vec![
-                        "884704bd421721e292edbff42eb77547fe115c6ff9825b08fc366be4cd69e9f6"
+                        "66a2eec5ef4a0c232c3c7f8720838a446296194742fe001ccb8dbb926b72518b"
                             .to_string(),
                     ]),
-                    kinds: None,
+                    kinds: Some(vec![1]),
                     e: None,
                     p: None,
                     since: None,
                     until: None,
-                    limit: Some(1),
+                    limit: Some(10),
                 }],
             )
             .await
