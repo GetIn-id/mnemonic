@@ -3,6 +3,12 @@ use nostr_rust::{
 };
 use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Manager};
+use tokio::sync::mpsc;
+
+#[derive(Debug, Deserialize, Serialize, Clone, Copy)]
+pub enum ClientCommand {
+    ReactLoaded,
+}
 
 #[derive(Serialize, Deserialize, Clone)]
 struct Post {
@@ -14,10 +20,15 @@ pub struct ClientWrapper {
     nostr_client: Client,
     identity: Identity,
     app_handle: AppHandle,
+    client_command_rx: mpsc::Receiver<ClientCommand>,
 }
 
 impl ClientWrapper {
-    pub fn new(identity: Identity, app_handle: AppHandle) -> Self {
+    pub fn new(
+        identity: Identity,
+        app_handle: AppHandle,
+        client_command_rx: mpsc::Receiver<ClientCommand>,
+    ) -> Self {
         let nostr_client =
             tauri::async_runtime::block_on(Client::new(vec!["wss://nos.lol"])).unwrap();
 
@@ -25,10 +36,17 @@ impl ClientWrapper {
             nostr_client,
             identity,
             app_handle,
+            client_command_rx,
         }
     }
 
     pub async fn init(&mut self) {
+        while let Some(command) = self.client_command_rx.recv().await {
+            std::thread::sleep(std::time::Duration::from_millis(100));
+            match command {
+                ClientCommand::ReactLoaded => break,
+            }
+        }
         self.subscribe().await;
         self.read_messages().await;
     }
