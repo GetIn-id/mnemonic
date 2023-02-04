@@ -105,7 +105,7 @@ export default function Profile() {
 
   return (
     <Box>
-      <Box borderBottom="1px solid #ccc" padding="2vh 20px">
+      <Box borderBottom="1px solid #ccc" padding="3vh 20px">
         <Grid container alignItems="center">
           <Grid item sx={{ mr: "15px" }}>
             <RouteLink to="/home">
@@ -137,7 +137,7 @@ export default function Profile() {
         )}
       </Box>
       {status === "success" && (
-        <Box height="87vh" sx={{ overflowY: "scroll" }}>
+        <Box height="86vh" sx={{ overflowY: "scroll" }}>
           <Box position="relative">
             <img
               width="100%"

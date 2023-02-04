@@ -35,7 +35,16 @@ export default function PostDetails() {
     { key: 1, name: "comment1" },
     { key: 2, name: "comment2" }
   ]);
-  const [posts, setPosts] = useState([{key: 1, name: "post1"}, {key: 2, name: "post2"}]);
+  const [posts, setPosts] = useState([
+    {
+      0: 0,
+      pubkey: "",
+      created_at: 0,
+      kind: 1,
+      tags: "",
+      content: "dummy content",
+    },
+  ]);
   const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -86,7 +95,7 @@ export default function PostDetails() {
 
   return (
     <Box>
-      <Box borderBottom="1px solid #ccc" padding="8px 20px">
+      <Box borderBottom="1px solid #ccc" padding="3vh 20px">
         <Grid container alignItems="center">
           <Grid item sx={{ mr: "10px" }}>
             <IconButton onClick={() => navigate("/home")}>
@@ -98,7 +107,7 @@ export default function PostDetails() {
           </Grid>
         </Grid>
       </Box>
-      <Box height="92vh" sx={{ overflowY: "scroll" }}>
+      <Box height="86vh" sx={{ overflowY: "scroll" }}>
         <Box textAlign="center" marginTop="1rem">
           {status === "loading" && (
             <CircularProgress size={20} color="primary" />
@@ -117,7 +126,7 @@ export default function PostDetails() {
                   />
                 </Grid>
                 <Grid item flexGrow="1">
-                  <Grid container justifyContent="space-between">
+                  <Grid container justifyContent="space-between" marginLeft="10px">
                     <Grid item>
                       <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
                         {/* {postDetails.author && postDetails.author.name} */}
@@ -128,7 +137,7 @@ export default function PostDetails() {
                         @The_Grape
                       </Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid item marginRight="20px">
                       {/* {status === "success" &&
                           postDetails.author &&
                           _id === postDetails.author._id && ( */}
@@ -169,7 +178,7 @@ export default function PostDetails() {
             <Box>
               <Typography sx={{ fontSize: "20px" }}>
                 {/* {postDetails.text} */}
-                This is the post text
+                {posts[0].content}
               </Typography>
             </Box>
             <Box display="flex" padding="1rem 0" borderBottom="1px solid #ccc">
@@ -228,11 +237,11 @@ export default function PostDetails() {
                     src={profileImage}
                     alt="logo"
                     width="60px"
-                    style={{ borderRadius: "50%" }}
+                    style={{ borderRadius: "50%", marginTop: "15px" }}
                   />
                 </Grid>
                 <Grid item flexGrow="1">
-                  <Box padding=".5rem 0">
+                  <Box marginTop="30px" marginLeft="20px">
                     <Input
                       onChange={(e) => setCommentText(e.target.value)}
                       value={commentText}
@@ -244,7 +253,7 @@ export default function PostDetails() {
                       sx={{ width: "100%" }}
                     />
                   </Box>
-                  <Box textAlign="right" paddingBottom=".5rem">
+                  <Box textAlign="right" paddingBottom="0.5rem" borderBottom="1px solid #ccc">
                     <Button
                       disabled={commentText.length === 0}
                       //onClick={handleAddComment}

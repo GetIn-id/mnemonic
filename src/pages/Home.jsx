@@ -6,7 +6,6 @@ import Post from "../components/Post";
 import { listen } from "@tauri-apps/api/event";
 //import { useDispatch, useSelector } from "react-redux";
 //import { getPosts } from "../redux/postSlice";
-//import AddPost from "../components/AddPost";
 
 export default function Home() {
   const [posts, setPosts] = useState([
@@ -54,19 +53,19 @@ export default function Home() {
   //   };
   // }, []);
 
-  useEffect(() => {
-    const loadHomeFeed = async () => {
-      // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-      try {
-        setPosts(await invoke("load_home_feed", { value: true }));
-      } catch {
-        console.log("error - couldnt load home feed");
-      }
-      //console.log(loadMsg);
-    };
-    loadHomeFeed();
+  // useEffect(() => {
+  //   const loadHomeFeed = async () => {
+  //     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  //     try {
+  //       setPosts(await invoke("load_home_feed", { value: true }));
+  //     } catch {
+  //       console.log("error - couldnt load home feed");
+  //     }
+  //     //console.log(loadMsg);
+  //   };
+  //   loadHomeFeed();
 
-  }, []);
+  // }, []);
 
   console.log(posts);
   return (
@@ -76,15 +75,14 @@ export default function Home() {
           <Grid item>
             <Typography variant="h6">Home</Typography>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <IconButton>
               <AssistantIcon />
             </IconButton>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
       <Box height="87vh" sx={{ overflowY: "scroll" }}>
-        {/* <AddPost /> */}
         <Box textAlign="center" marginTop="1rem">
           {status === "loading" && (
             <CircularProgress size={20} color="primary" />

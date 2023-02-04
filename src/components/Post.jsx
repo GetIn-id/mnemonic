@@ -5,7 +5,7 @@ import {
   Typography,
   Menu,
   MenuItem,
-  Box
+  Box,
 } from "@mui/material";
 //import { Box } from "@mui/system";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
@@ -48,32 +48,32 @@ export default function Post({ post, profile }) {
   };
   return (
     <>
-      <Link
-        to={`/post`}
-        style={{ textDecoration: "none", color: "inherit" }}
+      <Box
+        padding="1rem"
+        sx={{
+          "&:hover": {
+            backgroundColor: "#eee",
+          },
+        }}
       >
-        <Box
-          padding="1rem"
-          sx={{
-            "&:hover": {
-              backgroundColor: "#eee",
-            },
-          }}
-        >
-          <Grid container flexWrap="nowrap">
-            <Grid item sx={{ paddingRight: "1rem" }}>
-              {/* <Link to={`/profile/${post.author._id}`}> */}
-              <Link to={`/profile`}>
-                <img
-                  src={profileImage}
-                  alt="logo"
-                  width="50px"
-                  style={{ borderRadius: "50%" }}
-                />
-              </Link>
-            </Grid>
-            <Grid item flexGrow="1">
-              <Box>
+        <Grid container flexWrap="nowrap">
+          <Grid item sx={{ paddingRight: "1rem" }}>
+            {/* <Link to={`/profile/${post.author._id}`}> */}
+            <Link to={`/profile`}>
+              <img
+                src={profileImage}
+                alt="logo"
+                width="50px"
+                style={{ borderRadius: "50%" }}
+              />
+            </Link>
+          </Grid>
+          <Grid item flexGrow="1">
+            <Box>
+              <Link
+                to={`/post`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
                 <Grid
                   container
                   justifyContent="space-between"
@@ -109,6 +109,7 @@ export default function Post({ post, profile }) {
                       </Typography>
                     </Box>
                   </Grid>
+
                   <Grid item>
                     <IconButton
                       aria-expanded={open ? "true" : undefined}
@@ -134,71 +135,71 @@ export default function Post({ post, profile }) {
                     </Menu>
                   </Grid>
                 </Grid>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  marginRight="5rem"
-                  marginTop=".8rem"
+              </Link>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                marginRight="5rem"
+                marginTop=".8rem"
+              >
+                <IconButton
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleModalOpen();
+                  }}
+                  size="small"
                 >
-                  <IconButton
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleModalOpen();
-                    }}
-                    size="small"
-                  >
-                    <ChatBubbleOutlineIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small">
-                    <SyncIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small">
-                    <FavoriteBorderIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small">
-                    <IosShareIcon fontSize="small" />
-                  </IconButton>
-                </Box>
+                  <ChatBubbleOutlineIcon fontSize="small" />
+                </IconButton>
+                <IconButton size="small">
+                  <SyncIcon fontSize="small" />
+                </IconButton>
+                <IconButton size="small">
+                  <FavoriteBorderIcon fontSize="small" />
+                </IconButton>
+                <IconButton size="small">
+                  <IosShareIcon fontSize="small" />
+                </IconButton>
               </Box>
-            </Grid>
-          </Grid>
-        </Box>
-        {openModal && (
-          <Modal
-            open={openModal}
-            handleClose={handleModalClose}
-            saveText={"Comment"}
-            len={commentText.trimStart().length}
-          >
-            <Box>
-              <Grid container>
-                <Grid item>
-                  <img
-                    src={profileImage}
-                    alt="logo"
-                    width="60px"
-                    style={{ borderRadius: "50%" }}
-                  />
-                </Grid>
-                <Grid item flexGrow="1">
-                  <Box padding=".5rem 0">
-                    <Input
-                      onChange={(e) => setCommentText(e.target.value)}
-                      value={commentText}
-                      multiline
-                      rows="2"
-                      disableUnderline
-                      type="text"
-                      placeholder="Post your comment"
-                      sx={{ width: "100%" }}
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
             </Box>
-          </Modal>
-        )}
-      </Link>
+          </Grid>
+        </Grid>
+      </Box>
+      {openModal && (
+        <Modal
+          open={openModal}
+          handleClose={handleModalClose}
+          saveText={"Comment"}
+          len={commentText.trimStart().length}
+        >
+          <Box>
+            <Grid container>
+              <Grid item>
+                <img
+                  src={profileImage}
+                  alt="logo"
+                  width="60px"
+                  style={{ borderRadius: "50%" }}
+                />
+              </Grid>
+              <Grid item flexGrow="1">
+                <Box padding=".5rem 0">
+                  <Input
+                    onChange={(e) => setCommentText(e.target.value)}
+                    value={commentText}
+                    multiline
+                    rows="2"
+                    disableUnderline
+                    type="text"
+                    placeholder="Post your comment"
+                    sx={{ width: "100%" }}
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Modal>
+      )}
     </>
   );
 }

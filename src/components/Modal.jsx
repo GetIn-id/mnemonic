@@ -1,12 +1,7 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Dialog, Button, DialogActions, DialogContent, DialogTitle, Box, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, useTheme } from "@mui/system";
+
 export default function Modal({
   children,
   open,
