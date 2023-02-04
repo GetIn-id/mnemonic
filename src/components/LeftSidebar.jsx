@@ -14,8 +14,9 @@ import {
   useTheme,
 } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 // import { logout } from "../redux/authSlice";
@@ -58,7 +59,7 @@ export default function LeftSidebar() {
 
   return (
     <>
-      <Box sx={{ height: "100vh", maxWidth: "100%" }}>
+      <Box sx={{ maxWidth: "100%" }}>
         <Box textAlign="center">
           <Link
             to="/home"
@@ -68,7 +69,7 @@ export default function LeftSidebar() {
               backgroundColor: "inherit",
             }}
           >
-            <img src={logo} alt="logo" width="75px" style={{ borderRadius: "50%" }} />
+            <img src={logo} alt="logo" width="75px" />
           </Link>
         </Box>
         <List>
@@ -109,7 +110,7 @@ export default function LeftSidebar() {
             }}
           >
             <ListItemIcon>
-              <BookmarkIcon fontSize="medium" color="action" />
+              <NotificationsIcon fontSize="medium" color="action" />
             </ListItemIcon>
             <Hidden lgDown>
               <ListItemText
@@ -117,27 +118,7 @@ export default function LeftSidebar() {
                   fontSize: "18px",
                   color: theme.palette.action.active,
                 }}
-                primary="Bookmarks"
-              />
-            </Hidden>
-          </ListItem>
-          <ListItem
-            button
-            sx={{
-              borderRadius: "28px",
-              margin: ".5rem 0",
-            }}
-          >
-            <ListItemIcon>
-              <FavoriteIcon fontSize="medium" color="action" />
-            </ListItemIcon>
-            <Hidden lgDown>
-              <ListItemText
-                primaryTypographyProps={{
-                  fontSize: "18px",
-                  color: theme.palette.action.active,
-                }}
-                primary="Likes"
+                primary="Notifications"
               />
             </Hidden>
           </ListItem>
@@ -157,7 +138,7 @@ export default function LeftSidebar() {
               }}
             >
               <ListItemIcon>
-                <PersonOutlineIcon fontSize="medium" color="action" />
+                <PersonIcon fontSize="medium" color="action" />
               </ListItemIcon>
               <Hidden lgDown>
                 <ListItemText
@@ -238,7 +219,7 @@ export default function LeftSidebar() {
           <Box>
             <Grid container>
               <Grid item>
-                <img src={profileImage} alt="logo" width="60px" style={{ borderRadius: "50%" }} />
+                <img src={profileImage} alt="avatar" width="60px" style={{ borderRadius: "50%" }} />
               </Grid>
               <Grid item flexGrow="1">
                 <Box padding=".5rem 0">

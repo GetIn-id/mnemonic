@@ -56,7 +56,7 @@ export default function Home() {
   console.log(posts);
   return (
     <Box>
-      <Box borderBottom="1px solid #ccc" padding="8px 20px">
+      <Box borderBottom="1px solid #ccc" padding="3vh 20px">
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
             <Typography variant="h6">Home</Typography>
@@ -68,7 +68,7 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Box height="92vh" sx={{ overflowY: "scroll" }}>
+      <Box height="87vh" sx={{ overflowY: "scroll" }}>
         {/* <AddPost /> */}
         <Box textAlign="center" marginTop="1rem">
           {status === "loading" && (

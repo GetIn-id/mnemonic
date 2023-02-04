@@ -30,7 +30,6 @@ export default function Login() {
             src={logo}
             alt="Logo"
             width="150px"
-            style={{ borderRadius: "50%" }}
           />
         </Box>
         {isLoginForm ? (
