@@ -31,6 +31,7 @@ import Post from "../components/Post";
 
 export default function PostDetails() {
   const [commentText, setCommentText] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
   const [comments, setComments] = useState([
     { key: 1, name: "comment1" },
     { key: 2, name: "comment2" }
@@ -72,14 +73,15 @@ export default function PostDetails() {
   //   }
   // };
 
-  // const handleLike = async (e) => {
-  //   e.preventDefault();
-  //   const response = await likeOrDislikePost({ id: postDetails._id });
-  //   if (response) {
-  //     dispatch(getPostDetails(id));
-  //     dispatch(getComments(id));
-  //   }
-  // };
+  const handleLike = async (e) => {
+    // e.preventDefault();
+    // const response = await likeOrDislikePost({ id: postDetails._id });
+    // if (response) {
+    //   dispatch(getPostDetails(id));
+    //   dispatch(getComments(id));
+    // }
+    setIsLiked(!isLiked)
+  };
 
   // useEffect(() => {
   //   dispatch(getPostDetails(id));
@@ -217,16 +219,13 @@ export default function PostDetails() {
               <IconButton size="small">
                 <SyncIcon fontSize="small" />
               </IconButton>
-              {/* <IconButton onClick={handleLike} size="small">
-                  {postDetails.isLiked ? (
+              <IconButton onClick={handleLike} size="small">
+                  {isLiked ? (
                     <FavoriteIcon fontSize="small" />
                   ) : (
                     <FavoriteBorderIcon fontSize="small" />
                   )}
-                </IconButton> */}
-              <IconButton size="small">
-                <FavoriteIcon fontSize="small" />
-              </IconButton>
+                </IconButton>
               <IconButton size="small">
                 <IosShareIcon fontSize="small" />
               </IconButton>
