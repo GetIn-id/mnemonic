@@ -28,7 +28,7 @@ import profileImage from "../assets/grape.png";
 export default function Post({ post, profile }) {
   const [commentText, setCommentText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [newPost, setNewPost] = useState({created_at: 0, content: ""});
+  const [newPost, setNewPost] = useState({ created_at: 0, content: "", postId: "" });
   const [reply, setReply] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -47,155 +47,152 @@ export default function Post({ post, profile }) {
     setOpenModal(true);
   };
 
-    useEffect(() => {
-      const jsonPost = JSON.parse(post.content);
-      const ZERO = 0;
-      const PUBKEY = 1;
-      const CREATED_AT = 2;
-      const KIND = 3;
-      const TAGS = 4;
-      const CONTENT = 5;
-      setNewPost(
-        {
-          0: jsonPost[ZERO],
-          pubkey: jsonPost[PUBKEY],
-          created_at: jsonPost[CREATED_AT],
-          kind: jsonPost[KIND],
-          tags: jsonPost[TAGS],
-          content: jsonPost[CONTENT],
-        },
-      );
-      jsonPost[TAGS].length !== 0 ? setReply(true) : setReply(false);
+  useEffect(() => {
+    const jsonPost = JSON.parse(post.content);
+    const ZERO = 0;
+    const PUBKEY = 1;
+    const CREATED_AT = 2;
+    const KIND = 3;
+    const TAGS = 4;
+    const CONTENT = 5;
+    setNewPost({
+      0: jsonPost[ZERO],
+      pubkey: jsonPost[PUBKEY],
+      created_at: jsonPost[CREATED_AT],
+      kind: jsonPost[KIND],
+      tags: jsonPost[TAGS],
+      content: jsonPost[CONTENT],
+      postId: jsonPost[PUBKEY] + jsonPost[CREATED_AT],
+    });
+    jsonPost[TAGS].length !== 0 ? setReply(true) : setReply(false);
   }, []);
-console.log(newPost);
+
   return (
     <>
-      <Box
-        padding="1rem"
-        sx={{
-          "&:hover": {
-            backgroundColor: "#eee",
-          },
-        }}
-      >
-        <Grid container flexWrap="nowrap">
-          <Grid item sx={{ paddingRight: "1rem" }}>
-            {/* <Link to={`/profile/${post.author._id}`}> */}
-            <Link to={`/profile`}>
-              <img
-                src={profileImage}
-                alt="logo"
-                width="50px"
-                style={{ borderRadius: "50%" }}
-              />
-            </Link>
-          </Grid>
-          <Grid item flexGrow="1">
-            <Box>
-              <Link
-                to={`/post`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Grid
-                  container
-                  justifyContent="space-between"
-                  alignItems="center"
-                  flexWrap="nowrap"
-                >
-                  <Grid item>
-                    <Box display="flex">
-                      <Typography
-                        sx={{ fontSize: "16px", fontWeight: 500, mr: "6px" }}
-                      >
-                        The Grape
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
-                      >
-                        @The_Grape
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
-                      >
-                        .
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
-                      >
-                        {formatDistanceToNow(fromUnixTime(newPost.created_at))}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      {reply &&
-                      <Typography sx={{ fontSize: "10px", color: "#555" }}>Replying to @{newPost.tags}</Typography>
-                    }
-                    {reply ?
-                     <Typography sx={{ fontSize: "15px", color: "#555" }}>
-                        {newPost.content.substring(4)}
-                      </Typography>
-                      :
-                      <Typography sx={{ fontSize: "15px", color: "#555" }}>
-                      {newPost.content}
-                    </Typography>
-                      }
-                    </Box>
-                  </Grid>
-
-                  <Grid item>
-                    <IconButton
-                      aria-expanded={open ? "true" : undefined}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleClick(e);
-                      }}
-                    >
-                      <MoreHorizIcon />
-                    </IconButton>
-
-                    <Menu
-                      id="basic-menu"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      onClick={(e) => e.stopPropagation()}
-                      MenuListProps={{
-                        "aria-labelledby": "basic-button",
-                      }}
-                    >
-                      <MenuItem>Delete Post</MenuItem>
-                    </Menu>
-                  </Grid>
-                </Grid>
+        <Box
+          padding="1rem"
+          sx={{
+            "&:hover": {
+              backgroundColor: "#eee",
+            },
+          }}
+        >
+          <Grid container flexWrap="nowrap">
+            <Grid item sx={{ paddingRight: "1rem" }}>
+              {/* <Link to={`/profile/${post.author._id}`}> */}
+              <Link to={`/profile`}>
+                <img
+                  src={profileImage}
+                  alt="logo"
+                  width="50px"
+                  style={{ borderRadius: "50%" }}
+                />
               </Link>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                marginRight="5rem"
-                marginTop=".8rem"
-              >
-                <IconButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleModalOpen();
-                  }}
-                  size="small"
+            </Grid>
+            <Grid item flexGrow="1">
+              <Box>
+                <Link
+                  to={`/posts/${newPost.postId}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <ChatBubbleOutlineIcon fontSize="small" />
-                </IconButton>
-                <IconButton size="small">
-                  <SyncIcon fontSize="small" />
-                </IconButton>
-                <IconButton size="small">
-                  <FavoriteBorderIcon fontSize="small" />
-                </IconButton>
-                <IconButton size="small">
-                  <IosShareIcon fontSize="small" />
-                </IconButton>
+                  <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                    flexWrap="nowrap"
+                  >
+                    <Grid item>
+                      <Box display="flex">
+                        <Typography
+                          sx={{ fontSize: "16px", fontWeight: 500, mr: "6px" }}
+                        >
+                          The Grape
+                        </Typography>
+                        <Typography
+                          sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
+                        >
+                          @The_Grape
+                        </Typography>
+                        <Typography
+                          sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
+                        >
+                          .
+                        </Typography>
+                        <Typography
+                          sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
+                        >
+                          {formatDistanceToNow(
+                            fromUnixTime(newPost.created_at)
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        {reply && (
+                          <Typography sx={{ fontSize: "10px", color: "#555" }}>
+                            Replying to @{newPost.tags[0]}
+                          </Typography>
+                        )}
+                        <Typography sx={{ fontSize: "15px", color: "#555" }}>
+                          {newPost.content}
+                        </Typography>
+                      </Box>
+                    </Grid>
+
+                    <Grid item>
+                      <IconButton
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleClick(e);
+                        }}
+                      >
+                        <MoreHorizIcon />
+                      </IconButton>
+
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        onClick={(e) => e.stopPropagation()}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button",
+                        }}
+                      >
+                        <MenuItem>Delete Post</MenuItem>
+                      </Menu>
+                    </Grid>
+                  </Grid>
+                </Link>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  marginRight="5rem"
+                  marginTop=".8rem"
+                >
+                  <IconButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleModalOpen();
+                    }}
+                    size="small"
+                  >
+                    <ChatBubbleOutlineIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small">
+                    <SyncIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small">
+                    <FavoriteBorderIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small">
+                    <IosShareIcon fontSize="small" />
+                  </IconButton>
+                </Box>
               </Box>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
+        </Box>
       {openModal && (
         <Modal
           open={openModal}

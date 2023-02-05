@@ -109,7 +109,7 @@ function App() {
         }
       />
       <Route
-        path="/post"
+        path="/posts/:id"
         element={
           <Layout>
             <PostDetails />

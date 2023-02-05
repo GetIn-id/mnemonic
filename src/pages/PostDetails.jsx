@@ -47,6 +47,7 @@ export default function PostDetails() {
   ]);
   const theme = useTheme();
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   //const dispatch = useDispatch();
   // const { status, comments, commentStatus, postDetails } = useSelector(
