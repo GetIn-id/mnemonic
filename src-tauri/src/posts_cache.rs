@@ -1,5 +1,11 @@
-use crate::client::Post;
+use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Serialize, Deserialize, Clone, Hash, PartialEq, Eq)]
+pub struct Post {
+    pub content: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, Hash, PartialEq, Eq)]
 pub struct PostsCache {
     pub posts: Vec<Post>,
 }
@@ -10,7 +16,8 @@ impl PostsCache {
     }
 
     pub fn insert(&mut self, post: Post) {
-        println!("PostsCache, inserting {:?}", post);
-        self.posts.push(post);
+        if !self.posts.contains(&post) {
+            self.posts.push(post);
+        }
     }
 }
