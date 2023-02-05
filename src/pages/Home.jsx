@@ -9,61 +9,18 @@ import { invoke } from "@tauri-apps/api/tauri";
 //import { getPosts } from "../redux/postSlice";
 
 export default function Home() {
-  const [posts, setPosts] = useState([
-    {content: `[
-      0,
-      "",
-      0,
-      1,
-      "",
-      "dummy content"
-  ]`},
-  ]);
-  const status = "success";
-
-  // const dispatch = useDispatch();
-  //   const { status, posts } = useSelector((state) => state.post);
-  //   useEffect(() => {
-  //     dispatch(getPosts());
-  //   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const unlisten = listen("feed-event", (event) => {
-  //     console.log(event.payload.post);
-  //     const jsonEvent = JSON.parse(event.payload.post);
-  //     const ZERO = 0;
-  //     const PUBKEY = 1;
-  //     const CREATED_AT = 2;
-  //     const KIND = 3;
-  //     const TAGS = 4;
-  //     const CONTENT = 5;
-  //     setPosts([
-  //       {
-  //         0: jsonEvent[ZERO],
-  //         pubkey: jsonEvent[PUBKEY],
-  //         created_at: jsonEvent[CREATED_AT],
-  //         kind: jsonEvent[KIND],
-  //         tags: jsonEvent[TAGS],
-  //         content: jsonEvent[CONTENT],
-  //       },
-  //     ]);
-  //   });
-
-  //   return () => {
-  //     unlisten.then((f) => f());
-  //   };
-  // }, []);
+  const [posts, setPosts] = useState("");
+  const [status, setStatus] = useState("loading");
 
   useEffect(() => {
     const loadHomeFeed = async () => {
-      // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
       try {
         const content = await invoke("load_home_feed", { value: true });
         setPosts(content.posts);
+        setStatus("success")
       } catch {
         console.log("error - couldnt load home feed");
       }
-      //console.log(loadMsg);
     };
     loadHomeFeed();
   }, []);
@@ -76,11 +33,6 @@ export default function Home() {
           <Grid item>
             <Typography variant="h6">Home</Typography>
           </Grid>
-          {/* <Grid item>
-            <IconButton>
-              <AssistantIcon />
-            </IconButton>
-          </Grid> */}
         </Grid>
       </Box>
       <Box height="87vh" sx={{ overflowY: "scroll" }}>

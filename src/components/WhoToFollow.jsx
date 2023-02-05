@@ -74,10 +74,7 @@ export default function WhoToFollow({ user }) {
               borderRadius: theme.shape.borderRadius,
               textTransform: "capitalize",
               ml: "12px",
-              background: "black",
-              "&:hover": {
-                background: "#333",
-              },
+              background: "primary",
             }}
             variant="contained"
           >

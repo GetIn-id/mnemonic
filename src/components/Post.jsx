@@ -10,7 +10,7 @@ import {
 //import { Box } from "@mui/system";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import fromUnixTime from "date-fns/fromUnixTime";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SyncIcon from "@mui/icons-material/Sync";
@@ -24,11 +24,12 @@ import { Link } from "react-router-dom";
 import Modal from "./Modal";
 //import { getProfile } from "../redux/authSlice";
 import profileImage from "../assets/grape.png";
-import logo from "../assets/logo_lila_logo.png";
 
 export default function Post({ post, profile }) {
   const [commentText, setCommentText] = useState("");
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [newPost, setNewPost] = useState({created_at: 0, content: ""});
+  const [reply, setReply] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -46,7 +47,27 @@ export default function Post({ post, profile }) {
     setOpenModal(true);
   };
 
-  const jsonEvent = JSON.parse(post.content);
+    useEffect(() => {
+      const jsonPost = JSON.parse(post.content);
+      const ZERO = 0;
+      const PUBKEY = 1;
+      const CREATED_AT = 2;
+      const KIND = 3;
+      const TAGS = 4;
+      const CONTENT = 5;
+      setNewPost(
+        {
+          0: jsonPost[ZERO],
+          pubkey: jsonPost[PUBKEY],
+          created_at: jsonPost[CREATED_AT],
+          kind: jsonPost[KIND],
+          tags: jsonPost[TAGS],
+          content: jsonPost[CONTENT],
+        },
+      );
+      jsonPost[TAGS].length !== 0 ? setReply(true) : setReply(false);
+  }, []);
+console.log(newPost);
   return (
     <>
       <Box
@@ -101,13 +122,22 @@ export default function Post({ post, profile }) {
                       <Typography
                         sx={{ fontSize: "15px", mr: "6px", color: "#555" }}
                       >
-                        {formatDistanceToNow(fromUnixTime(jsonEvent[2]))}
+                        {formatDistanceToNow(fromUnixTime(newPost.created_at))}
                       </Typography>
                     </Box>
                     <Box>
-                      <Typography sx={{ fontSize: "15px", color: "#555" }}>
-                        {jsonEvent[5]}
+                      {reply &&
+                      <Typography sx={{ fontSize: "10px", color: "#555" }}>Replying to @{newPost.tags}</Typography>
+                    }
+                    {reply ?
+                     <Typography sx={{ fontSize: "15px", color: "#555" }}>
+                        {newPost.content.substring(4)}
                       </Typography>
+                      :
+                      <Typography sx={{ fontSize: "15px", color: "#555" }}>
+                      {newPost.content}
+                    </Typography>
+                      }
                     </Box>
                   </Grid>
 
