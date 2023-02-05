@@ -1,12 +1,9 @@
 import { CircularProgress, Grid, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import AssistantIcon from "@mui/icons-material/Assistant";
 import Post from "../components/Post";
 import { listen } from "@tauri-apps/api/event";
 import { invoke } from "@tauri-apps/api/tauri";
-//import { useDispatch, useSelector } from "react-redux";
-//import { getPosts } from "../redux/postSlice";
 
 export default function Home() {
   const [posts, setPosts] = useState("");

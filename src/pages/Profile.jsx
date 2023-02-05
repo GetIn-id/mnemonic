@@ -9,6 +9,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { invoke } from "@tauri-apps/api/tauri";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -33,17 +34,22 @@ import banner from '../assets/lilabanner.png';
 
 export default function Profile() {
   const theme = useTheme();
-  const status = "success";
-  const [posts, setPosts] = useState([
-    {content: `[
-      0,
-      "",
-      0,
-      1,
-      "",
-      "dummy content"
-  ]`},
-  ]);
+  const [posts, setPosts] = useState(null);
+  const [status, setStatus] = useState("loading");
+
+  useEffect(() => {
+    const loadProfileFeed = async () => {
+      try {
+        const content = await invoke("load_home_feed", { value: true });
+        setPosts(content.posts);
+        setStatus("success")
+      } catch {
+        console.log("error - couldnt load profile feed");
+      }
+    };
+    loadProfileFeed();
+  }, []);
+
 //   const { id } = useParams();
 //   const dispatch = useDispatch();
 //   const { profile, status } = useSelector((state) => state.auth);
@@ -131,9 +137,9 @@ export default function Profile() {
                 The Grape
               </Typography>
               <Typography sx={{ fontSize: "12px", color: "#555" }}>
-                {/* {profile.posts && profile.posts.length}  */}
-                2 posts
-              </Typography>{" "}
+                {posts && posts.length} {" "} posts
+                
+              </Typography>
             </Grid>
           )}
         </Grid>
@@ -181,10 +187,7 @@ export default function Profile() {
                   borderRadius: theme.shape.borderRadius,
                   textTransform: "capitalize",
                   padding: "6px 20px",
-                  background: "black",
-                  "&:hover": {
-                    background: "#333",
-                  },
+                  background: "primary",
                 }}
                 variant="contained"
               >
@@ -294,7 +297,7 @@ export default function Profile() {
               <Post key={post._id} post={post} profile={true} />
             ))} */}
             {status === "success" &&
-          posts.map((post) => <Post key={Math.floor(Math.random() * 1500)} post={post} />)}
+          posts.map((post) => <Post key={Math.floor(Math.random() * 10000)} post={post} />)}
         </Box>
       )}
     </Box>

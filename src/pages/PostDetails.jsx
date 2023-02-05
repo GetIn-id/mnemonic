@@ -36,16 +36,6 @@ export default function PostDetails() {
     { key: 1, name: "comment1" },
     { key: 2, name: "comment2" }
   ]);
-  const [posts, setPosts] = useState([
-    {
-      0: 0,
-      pubkey: "",
-      created_at: 0,
-      kind: 1,
-      tags: "",
-      content: "dummy content",
-    },
-  ]);
   const theme = useTheme();
   const { id } = useParams();
   console.log(id);
