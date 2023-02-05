@@ -99,7 +99,7 @@ export default function PostDetails() {
       <Box borderBottom="1px solid #ccc" padding="3vh 20px">
         <Grid container alignItems="center">
           <Grid item sx={{ mr: "10px" }}>
-            <IconButton onClick={() => navigate("/home")}>
+            <IconButton onClick={() => navigate("/")}>
               <ArrowBackIcon />
             </IconButton>
           </Grid>
@@ -179,7 +179,7 @@ export default function PostDetails() {
             <Box>
               <Typography sx={{ fontSize: "20px" }}>
                 {/* {postDetails.text} */}
-                {posts[0].content}
+                this is post: {" "}{id.substring(40)}
               </Typography>
             </Box>
             <Box display="flex" padding="1rem 0" borderBottom="1px solid #ccc">

@@ -45,7 +45,7 @@ export default function LeftSidebar() {
   };
 
   const navigateLogin = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   const [postText, setPostText] = React.useState("");
@@ -62,7 +62,7 @@ export default function LeftSidebar() {
       <Box sx={{ maxWidth: "100%" }}>
         <Box textAlign="center">
           <Link
-            to="/home"
+            to="/"
             style={{
               textDecoration: "none",
               color: "inherit",
@@ -74,7 +74,7 @@ export default function LeftSidebar() {
         </Box>
         <List>
           <NavLink
-            to="/home"
+            to="/"
             style={{
               textDecoration: "none",
               color: "inherit",

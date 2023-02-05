@@ -117,7 +117,7 @@ export default function Profile() {
       <Box borderBottom="1px solid #ccc" padding="3vh 20px">
         <Grid container alignItems="center">
           <Grid item sx={{ mr: "15px" }}>
-            <RouteLink to="/home">
+            <RouteLink to="/">
               <IconButton>
                 <ArrowBackIcon />
               </IconButton>

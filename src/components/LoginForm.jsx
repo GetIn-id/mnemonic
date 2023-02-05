@@ -13,7 +13,7 @@ export default function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     //dispatch(loginUser(loginData));
-    navigate("/home");
+    navigate("/");
   };
 
   //   const loginAsGuest = () => {

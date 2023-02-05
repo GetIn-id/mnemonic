@@ -41,10 +41,8 @@ export default function Home() {
             <CircularProgress size={20} color="primary" />
           )}
         </Box>
-        {/* {status === "success" &&
-          posts.map((post) => <Post key={post._id} post={post} />)} */}
         {status === "success" &&
-          posts.map((post) => <Post key={post.key} post={post} />)}
+          posts.map((post) => <Post key={Math.floor(Math.random() * 10000)} post={post} />)}
       </Box>
     </Box>
   );
