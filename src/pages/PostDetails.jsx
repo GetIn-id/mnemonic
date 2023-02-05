@@ -31,19 +31,10 @@ import Post from "../components/Post";
 
 export default function PostDetails() {
   const [commentText, setCommentText] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
   const [comments, setComments] = useState([
     { key: 1, name: "comment1" },
     { key: 2, name: "comment2" }
-  ]);
-  const [posts, setPosts] = useState([
-    {
-      0: 0,
-      pubkey: "",
-      created_at: 0,
-      kind: 1,
-      tags: "",
-      content: "dummy content",
-    },
   ]);
   const theme = useTheme();
   const { id } = useParams();
@@ -72,14 +63,15 @@ export default function PostDetails() {
   //   }
   // };
 
-  // const handleLike = async (e) => {
-  //   e.preventDefault();
-  //   const response = await likeOrDislikePost({ id: postDetails._id });
-  //   if (response) {
-  //     dispatch(getPostDetails(id));
-  //     dispatch(getComments(id));
-  //   }
-  // };
+  const handleLike = async (e) => {
+    // e.preventDefault();
+    // const response = await likeOrDislikePost({ id: postDetails._id });
+    // if (response) {
+    //   dispatch(getPostDetails(id));
+    //   dispatch(getComments(id));
+    // }
+    setIsLiked(!isLiked)
+  };
 
   // useEffect(() => {
   //   dispatch(getPostDetails(id));
@@ -99,7 +91,7 @@ export default function PostDetails() {
       <Box borderBottom="1px solid #ccc" padding="3vh 20px">
         <Grid container alignItems="center">
           <Grid item sx={{ mr: "10px" }}>
-            <IconButton onClick={() => navigate("/home")}>
+            <IconButton onClick={() => navigate("/")}>
               <ArrowBackIcon />
             </IconButton>
           </Grid>
@@ -179,7 +171,7 @@ export default function PostDetails() {
             <Box>
               <Typography sx={{ fontSize: "20px" }}>
                 {/* {postDetails.text} */}
-                {posts[0].content}
+                this is post: {" "}{id.substring(40)}
               </Typography>
             </Box>
             <Box display="flex" padding="1rem 0" borderBottom="1px solid #ccc">
@@ -217,16 +209,13 @@ export default function PostDetails() {
               <IconButton size="small">
                 <SyncIcon fontSize="small" />
               </IconButton>
-              {/* <IconButton onClick={handleLike} size="small">
-                  {postDetails.isLiked ? (
+              <IconButton onClick={handleLike} size="small">
+                  {isLiked ? (
                     <FavoriteIcon fontSize="small" />
                   ) : (
                     <FavoriteBorderIcon fontSize="small" />
                   )}
-                </IconButton> */}
-              <IconButton size="small">
-                <FavoriteIcon fontSize="small" />
-              </IconButton>
+                </IconButton>
               <IconButton size="small">
                 <IosShareIcon fontSize="small" />
               </IconButton>

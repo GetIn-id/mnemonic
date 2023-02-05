@@ -7,6 +7,7 @@ import logo from "../assets/logo.png";
 export default function Login() {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const theme = useTheme();
+
   return (
     <Box
       display="flex"

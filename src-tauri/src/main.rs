@@ -56,6 +56,11 @@ async fn load_home_feed(
     Err(())
 }
 
+#[tauri::command]
+async fn identity_exists() -> Result<bool, ()> {
+    return Ok(true);
+}
+
 // the payload type must implement `Serialize` and `Clone`.
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -100,7 +105,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![react_loaded, load_home_feed])
+        .invoke_handler(tauri::generate_handler![
+            react_loaded,
+            load_home_feed,
+            identity_exists
+        ])
         //.run(tauri::generate_context!())
         .build(tauri::generate_context!())?
         .run(move |app_handle, event| match event {

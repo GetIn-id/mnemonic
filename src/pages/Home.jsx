@@ -1,12 +1,9 @@
 import { CircularProgress, Grid, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import AssistantIcon from "@mui/icons-material/Assistant";
 import Post from "../components/Post";
 import { listen } from "@tauri-apps/api/event";
 import { invoke } from "@tauri-apps/api/tauri";
-//import { useDispatch, useSelector } from "react-redux";
-//import { getPosts } from "../redux/postSlice";
 
 export default function Home() {
   const [posts, setPosts] = useState("");
@@ -41,10 +38,8 @@ export default function Home() {
             <CircularProgress size={20} color="primary" />
           )}
         </Box>
-        {/* {status === "success" &&
-          posts.map((post) => <Post key={post._id} post={post} />)} */}
         {status === "success" &&
-          posts.map((post) => <Post key={post.key} post={post} />)}
+          posts.map((post) => <Post key={Math.floor(Math.random() * 10000)} post={post} />)}
       </Box>
     </Box>
   );

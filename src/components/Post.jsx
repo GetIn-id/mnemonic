@@ -25,7 +25,8 @@ import Modal from "./Modal";
 //import { getProfile } from "../redux/authSlice";
 import profileImage from "../assets/grape.png";
 
-export default function Post({ post, profile }) {
+export default function Post({ post }) {
+  const [isLiked, setIsLiked] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const [newPost, setNewPost] = useState({ created_at: 0, content: "", postId: "" });
@@ -45,6 +46,16 @@ export default function Post({ post, profile }) {
 
   const handleModalOpen = () => {
     setOpenModal(true);
+  };
+
+  const handleLike = async (e) => {
+    // e.preventDefault();
+    // const response = await likeOrDislikePost({ id: postDetails._id });
+    // if (response) {
+    //   dispatch(getPostDetails(id));
+    //   dispatch(getComments(id));
+    // }
+    setIsLiked(!isLiked)
   };
 
   useEffect(() => {
@@ -182,9 +193,13 @@ export default function Post({ post, profile }) {
                   <IconButton size="small">
                     <SyncIcon fontSize="small" />
                   </IconButton>
-                  <IconButton size="small">
+                  <IconButton onClick={handleLike} size="small">
+                  {isLiked ? (
+                    <FavoriteIcon fontSize="small" />
+                  ) : (
                     <FavoriteBorderIcon fontSize="small" />
-                  </IconButton>
+                  )}
+                </IconButton>
                   <IconButton size="small">
                     <IosShareIcon fontSize="small" />
                   </IconButton>
