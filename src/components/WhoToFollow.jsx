@@ -4,7 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 //import { followAccount, followingAccount } from "../api";
 //import { getFollowers, getFollowings } from "../redux/followSlice";
-import jack from "../assets/jack.jpeg";
+import Jack from "../assets/jack.jpeg";
+import The_Grape from "../assets/grape.png";
+import Skarsh from "../assets/skarsh.png";
 
 export default function WhoToFollow({ user }) {
   const theme = useTheme();
@@ -34,20 +36,20 @@ export default function WhoToFollow({ user }) {
           <Grid container>
             {/* <Link to={`/profile/${user._id}`}> */}
               <Grid item sx={{ paddingRight: "12px" }}>
-                <img src={jack} width="50px" alt="logo" style={{ borderRadius: "50%" }}/>
+                <img src={user.avatar} width="50px" alt="logo" style={{ borderRadius: "50%" }}/>
               </Grid>
             {/* </Link> */}
             <Grid item>
               <Grid container alignItems="center">
                 <Grid item>
                   <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
-                    Jack
+                    {user.name}
                   </Typography>
                   <Box display="flex" alignItems="center">
                     <Typography
                       sx={{ fontSize: "14px", mr: "6px", color: "#555" }}
                     >
-                      @Jack
+                      {user.handler}
                     </Typography>
                     <Typography
                       sx={{

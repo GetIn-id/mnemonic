@@ -25,7 +25,7 @@ import Modal from "./Modal";
 //import { getProfile } from "../redux/authSlice";
 import profileImage from "../assets/grape.png";
 
-export default function Post({ post, profile }) {
+export default function Post({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);

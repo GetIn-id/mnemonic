@@ -1,9 +1,32 @@
 import React, { useState } from "react";
 import { Typography, Box, TextField, FormControl } from "@mui/material";
 import WhoToFollow from "./WhoToFollow";
+import Jack from "../assets/jack.jpeg";
+import The_Grape from "../assets/grape.png";
+import Skarsh from "../assets/skarsh.png";
 
 export default function RightSidebar() {
   const [query, setQuery] = useState("");
+  const [followUsers, setFollowUsers] = useState([
+    {
+      id: 1,
+      name: "Jack",
+      handler: "Jack",
+      avatar: Jack,
+    },
+    {
+      id: 2,
+      name: "The Grape",
+      handler: "The_Grape",
+      avatar: The_Grape,
+    },
+    {
+      id: 3,
+      name: "Skarsh",
+      handler: "Skarsh",
+      avatar: Skarsh,
+    },
+  ]);
   const userStatus = "success";
   const followingStatus = "success";
 
@@ -41,7 +64,7 @@ export default function RightSidebar() {
     <Box>
       <FormControl>
         <TextField
-          style={{ marginTop: "20px", marginLeft: "0px", minWidth: "330px" }}
+          style={{ marginTop: "20px", marginLeft: "0px", width: "370px" }}
           size="normal"
           variant="outlined"
           onChange={(e) => setQuery(e.target.value)}
@@ -51,7 +74,7 @@ export default function RightSidebar() {
       </FormControl>
       {query.length !== 0 && (
         <Box
-          width="340px"
+          width="380px"
           sx={{
             backgroundColor: "white",
             border: "1px solid #eee",
@@ -125,6 +148,7 @@ export default function RightSidebar() {
           borderRadius: "28px",
           padding: "10px 20px",
           margin: "1rem 0",
+          width: "100%",
         }}
       >
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -135,11 +159,13 @@ export default function RightSidebar() {
             <CircularProgress size={20} color="primary" />
           )}
         </Box>
-        <WhoToFollow />
+        {/* <WhoToFollow  /> */}
         {/* {userStatus === "success" &&
             showToFollow()
               .slice(0, 7)
               .map((item) => <WhoToFollow key={item._id} user={item} />)} */}
+        {userStatus === "success" &&
+          followUsers.map((item) => <WhoToFollow key={item.id} user={item} />)}
       </Box>
     </Box>
   );

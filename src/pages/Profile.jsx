@@ -292,10 +292,6 @@ export default function Profile() {
               Posts
             </Typography>
           </Box>
-          {/* {profile.posts &&
-            profile.posts.map((post) => (
-              <Post key={post._id} post={post} profile={true} />
-            ))} */}
             {status === "success" &&
           posts.map((post) => <Post key={Math.floor(Math.random() * 10000)} post={post} />)}
         </Box>
