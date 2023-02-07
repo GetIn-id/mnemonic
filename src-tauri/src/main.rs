@@ -41,22 +41,19 @@ async fn react_loaded(
 
 #[tauri::command]
 async fn load_home_feed(
-    value: bool,
+    _value: bool,
     tx_state: tauri::State<'_, ClientCommandChannelTx>,
     rx_state: tauri::State<'_, FeedChannelRx>,
 ) -> Result<PostsCache, ()> {
-    println!("load_home_feed");
     let sender = tx_state.inner.lock().await;
     let mut rx = rx_state.inner.lock().await;
-    if value {
-        sender.send(ClientCommand::HomeFeedLoaded).await.unwrap();
-    }
+
+    sender.send(ClientCommand::HomeFeedLoaded).await.unwrap();
 
     if let Some(posts) = rx.recv().await {
         return Ok(posts);
     }
 
-    println!("end load_home_feed");
     Err(())
 }
 
@@ -138,9 +135,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             identity_exists,
             subscribe
         ])
-        //.run(tauri::generate_context!())
         .build(tauri::generate_context!())?
-        .run(move |app_handle, event| match event {
+        .run(move |_app_handle, event| match event {
             RunEvent::Ready => {
                 println!("Application ready");
             }

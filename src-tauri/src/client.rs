@@ -1,8 +1,11 @@
+use std::time::Duration;
+
 use nostr_rust::{
     events::extract_events_ws, nostr_client::Client, req::ReqFilter, Identity, Message,
 };
 use serde::{Deserialize, Serialize};
 use tokio::sync::mpsc;
+use tokio::time::timeout;
 
 use crate::posts_cache::{Post, PostsCache};
 
@@ -84,7 +87,7 @@ impl ClientWrapper {
         }
     }
 
-    fn handle_message(&mut self, relay_url: &String, message: &Message) -> Result<(), String> {
+    fn handle_message(&mut self, relay_url: &String, message: &Message) {
         let events = extract_events_ws(message);
 
         for event in events {
@@ -92,22 +95,26 @@ impl ClientWrapper {
                 content: event.get_content(),
             })
         }
-
-        Ok(())
     }
 
     pub async fn read_messages_on_demand(&mut self) {
-        println!("read_messages_on_demand");
-        let events = self.nostr_client.next_data().await.unwrap();
-        for (relay_url, message) in events.iter() {
-            self.handle_message(relay_url, message).unwrap();
+        match timeout(Duration::from_secs(2), self.nostr_client.next_data()).await {
+            Ok(events_res) => match events_res {
+                Ok(events) => {
+                    for (relay_url, message) in events.iter() {
+                        self.handle_message(relay_url, message)
+                    }
+                }
+                Err(err) => println!("Error when handling message {:?}", err),
+            },
+            Err(err) => println!("Error, timeout when reading data: {:?}", err),
         }
     }
 
     pub async fn read_messages(&mut self) {
         while let Ok(events) = self.nostr_client.next_data().await {
             for (relay_url, message) in events.iter() {
-                self.handle_message(relay_url, message).unwrap();
+                self.handle_message(relay_url, message);
             }
         }
     }
