@@ -35,7 +35,10 @@ import banner from '../assets/lilabanner.png';
 export default function Profile() {
   const theme = useTheme();
   const [posts, setPosts] = useState(null);
+  const [metaData, setMetaData] = useState(null);
   const [status, setStatus] = useState("loading");
+  const [follow, setFollow] = useState(false);
+  
 
   useEffect(() => {
     const loadProfileFeed = async () => {
@@ -43,13 +46,29 @@ export default function Profile() {
         const content = await invoke("load_home_feed", { value: true });
         setPosts(content.posts);
         setStatus("success")
-      } catch {
-        console.log("error - couldnt load profile feed");
+      } catch (err) {
+        console.log("error - couldnt load profile feed", {err});
       }
     };
+
     loadProfileFeed();
   }, []);
 
+  useEffect(() => {
+    const loadMetaData = async () => {
+      try {
+        const content = await invoke("load_metadata", { value: true });
+        setMetaData(content);
+        
+      } catch {
+        console.log("error - couldnt load meta data");
+      }
+    };
+    loadMetaData();
+  }, []);
+  const handleFollow = () => {
+    setFollow(!follow);
+  };
 //   const { id } = useParams();
 //   const dispatch = useDispatch();
 //   const { profile, status } = useSelector((state) => state.auth);
@@ -134,7 +153,7 @@ export default function Profile() {
             <Grid item>
               <Typography variant="h6">
                 {/* {profile.userId && profile.userId && profile.userId.name} */}
-                The Grape
+                {metaData.name && metaData.name}
               </Typography>
               <Typography sx={{ fontSize: "12px", color: "#555" }}>
                 {posts && posts.length} {" "} posts
@@ -156,20 +175,20 @@ export default function Profile() {
           <Box position="relative">
             <img
               width="100%"
-              src={banner}
+              src={metaData.banner}
               alt="background"
               style={{maxHeight: "250px"}}
             />
             <Box
               sx={{
                 position: "absolute",
-                top: 175,
+                top: 150,
                 left: 15,
                 background: "#eee",
                 borderRadius: "50%",
               }}
             >
-              <img width="125px" src={profile} alt="profile" style={{borderRadius: "50%"}} />
+              <img width="125px" src={metaData.picture} alt="profile" style={{borderRadius: "50%"}} />
             </Box>
           </Box>
           <Box textAlign="right" padding="10px 20px">
@@ -179,9 +198,9 @@ export default function Profile() {
             <IconButton style={{marginLeft: "10px", marginRight: "10px"}}>
               <MailOutlineIcon />
             </IconButton>
-            {/* {!hideFollow() && isFollowVisible() && ( */}
+            {!follow && (
               <Button
-                // onClick={handleFollow}
+                onClick={handleFollow}
                 size="small"
                 sx={{
                   borderRadius: theme.shape.borderRadius,
@@ -193,11 +212,11 @@ export default function Profile() {
               >
                 Follow
               </Button>
-             {/* )}
+            )}
 
-            {!hideFollow() && !isFollowVisible() && (
+            {follow && (
               <Button
-                onClick={handleUnfollow}
+                onClick={handleFollow}
                 size="small"
                 sx={{
                   borderRadius: theme.shape.borderRadius,
@@ -212,20 +231,20 @@ export default function Profile() {
               >
                 Unfollow
               </Button>
-            )} */}
+            )} 
           </Box>
           <Box padding="10px 20px">
             <Typography variant="h6" sx={{ fontWeight: "500" }}>
               {/* {profile.userId && profile.userId.name} */}
-            The Grape
+            {metaData.name && metaData.name}
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#555" }}>
               {/* @{profile.userId && profile.userId.handle} */}
-              @The_Grape
+              @{metaData.display_name && metaData.display_name}
             </Typography>
             <Typography fontSize="16px" color="#333" padding="10px 0">
               {/* {profile.bio} */}
-              Just a humble grape who code and stuff
+              {metaData.about && metaData.about}
             </Typography>
             <Box
               display="flex"
@@ -245,10 +264,10 @@ export default function Profile() {
                 <Link
                   sx={{ textDecoration: "none", marginLeft: "6px" }}
                 //   href={profile.website || "https:/wasifbaliyan.com"}
-                href="https://getin.id"
+                href={metaData.website && metaData.website}
                 >
                   {/* {profile.website ? profile.website : "www"} */}
-                  getin.id
+                  {metaData.website && metaData.website}
                 </Link>
               </Box>
               <Box display="flex" marginLeft="1rem">
@@ -268,14 +287,14 @@ export default function Profile() {
                   {/* {followingStatus === "success" && followings.length} */}
                   100
                 </strong>
-                -Following
+                {" "}Following
               </Typography>
               <Typography color="#555" marginRight="1rem">
                 <strong style={{ color: "black" }}>
                   {/* {followerStatus === "success" && followers.length} */}
                   60
                 </strong>
-                -Followers
+                {" "}Followers
               </Typography>
             </Box>
           </Box>
