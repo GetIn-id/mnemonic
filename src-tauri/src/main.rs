@@ -1,6 +1,7 @@
 use std::str::FromStr;
 
 use dotenv::dotenv;
+use nostr::Metadata;
 use nostr_rust::req::ReqFilter;
 use nostr_rust::Identity;
 use tauri::{Manager, RunEvent};
@@ -55,6 +56,26 @@ async fn load_home_feed(
     }
 
     Err(())
+}
+
+#[tauri::command]
+async fn load_metadata(
+    pub_key: String,
+    tx_state: tauri::State<'_, ClientCommandChannelTx>,
+) -> Result<Metadata, ()> {
+    let sender = tx_state.inner.lock().await;
+
+    Ok(Metadata {
+        name: Some("TheGrape".to_string()),
+        display_name: Some("The_Grape".to_string()),
+        about: Some("Just a humble grape".to_string()),
+        website: Some("https://i.postimg.cc/rmzBHcm8/grape.webp".to_string()),
+        picture: Some("https://i.postimg.cc/k4mw8zK3/lilabanner2.png".to_string()),
+        banner: Some("www.getin.id".to_string()),
+        nip05: Some("".to_string()),
+        lud06: Some("".to_string()),
+        lud16: Some("".to_string()),
+    })
 }
 
 #[tauri::command]
@@ -132,6 +153,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .invoke_handler(tauri::generate_handler![
             react_loaded,
             load_home_feed,
+            load_metadata,
             identity_exists,
             subscribe
         ])
