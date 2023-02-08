@@ -132,10 +132,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let app_handle = app.app_handle();
 
             // TODO: How should we really load nost private key
-            let private_key = std::env::var("NOSTR_PRIVATE_KEY").unwrap();
-            let _public_key = std::env::var("NOSTR_PUBLIC_KEY").unwrap();
+            //let private_key = std::env::var("NOSTR_PRIVATE_KEY").unwrap();
+            //let _public_key = std::env::var("NOSTR_PUBLIC_KEY").unwrap();
 
-            let my_identity = Identity::from_str(&private_key).unwrap();
+            let my_identity = Identity::from_str(&"66a2eec5ef4a0c232c3c7f8720838a446296194742fe001ccb8dbb926b72518b").unwrap();
 
             let mut client = ClientWrapper::new(my_identity, client_command_rx, posts_tx);
 
