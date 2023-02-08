@@ -21,6 +21,7 @@ tokio = { version = "1.25.0", features = ["full"] }
 
 # nostr deps
 nostr_rust = { version = "*", features = ["async"] }
+nostr = "0.18.0"
 dotenv = "0.15.0"
 
 [features]
