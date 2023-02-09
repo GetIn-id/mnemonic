@@ -61,10 +61,10 @@ export default function RightSidebar() {
   //   }
 
   return (
-    <Box>
+    <Box sx={{width: "25vw"}}>
       <FormControl>
         <TextField
-          style={{ marginTop: "20px", marginLeft: "0px", width: "370px" }}
+          style={{ marginTop: "20px", marginLeft: "0px", width: "25vw" }}
           size="normal"
           variant="outlined"
           onChange={(e) => setQuery(e.target.value)}
@@ -148,7 +148,7 @@ export default function RightSidebar() {
           borderRadius: "28px",
           padding: "10px 20px",
           margin: "1rem 0",
-          width: "100%",
+          width: "22vw",
         }}
       >
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>

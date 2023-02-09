@@ -16,8 +16,10 @@ export default function Layout({ children }) {
   return (
     <Box
       sx={{
-        maxWidth: theme.breakpoints.values.lg,
+        //maxWidth: theme.breakpoints.values.lg,
         margin: "0 auto",
+        width: "94vw",
+        height: "96vh"
       }}
     >
       <Grid container>

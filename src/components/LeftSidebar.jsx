@@ -13,11 +13,10 @@ import {
   Input,
   useTheme,
 } from "@mui/material";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
 import PersonIcon from "@mui/icons-material/Person";
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LogoutIcon from "@mui/icons-material/Logout";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 // import { logout } from "../redux/authSlice";
 // import { useDispatch } from "react-redux";
@@ -104,6 +103,7 @@ export default function LeftSidebar() {
           </NavLink>
           <ListItem
             button
+            disabled
             sx={{
               borderRadius: "28px",
               margin: ".5rem 0",
@@ -119,6 +119,27 @@ export default function LeftSidebar() {
                   color: theme.palette.action.active,
                 }}
                 primary="Notifications"
+              />
+            </Hidden>
+          </ListItem>
+          <ListItem
+            button
+            disabled
+            sx={{
+              borderRadius: "28px",
+              margin: ".5rem 0",
+            }}
+          >
+            <ListItemIcon>
+              <QuestionAnswerIcon fontSize="medium" color="action" />
+            </ListItemIcon>
+            <Hidden lgDown>
+              <ListItemText
+                primaryTypographyProps={{
+                  fontSize: "18px",
+                  color: theme.palette.action.active,
+                }}
+                primary="Messages"
               />
             </Hidden>
           </ListItem>
