@@ -30,7 +30,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit}>
       <TextField
         onChange={(e) => setLoginData(e.target.value)}
-        sx={{ width: "100%", margin: "1rem 0", bgcolor: "#fff" }}
+        sx={{ width: "100%", margin: "1rem 0", bgcolor: "#fff", color:"white" }}
         variant="outlined"
         label="Enter private key"
         type="text"

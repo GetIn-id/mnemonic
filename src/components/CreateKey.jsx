@@ -34,7 +34,7 @@ export default function CreateKey() {
 
   return (
     <Box>
-      <Typography>
+      <Typography color={"white"}>
         Press the button below to create a brand new profile
       </Typography>
       <Button

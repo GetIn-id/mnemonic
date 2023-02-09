@@ -22,8 +22,9 @@ export default function Login() {
         borderRadius={theme.shape.borderRadius}
         sx={{
           width: theme.breakpoints.values.sm,
-          bgcolor: "#EFF3F4",
+          //bgcolor: "#EFF3F4",
           padding: " 3rem 2rem",
+          background: 'linear-gradient(to right bottom, #9D50BB, #6E48AA)'
         }}
       >
         <Box textAlign="center" marginBottom="1rem">
@@ -34,15 +35,15 @@ export default function Login() {
           />
         </Box>
         {isLoginForm ? (
-        <Typography variant="h5">Login to your account</Typography>
+        <Typography variant="h5" color={"white"}>Login to your account</Typography>
         ) : (
-          <Typography variant="h5">Create a new profile</Typography>
+          <Typography variant="h5" color={"white"}>Create a new profile</Typography>
         )} 
         {isLoginForm ? 
         <LoginForm />
          : <CreateKey />} 
          {isLoginForm ? ( 
-        <Box textAlign="center" margin=".5rem 0">
+        <Box textAlign="center" margin=".5rem 0" color={"white"}>
           Don't have a profile?{" "}
           <Link
             style={{ textDecoration: "none", cursor: "pointer" }}
@@ -52,7 +53,7 @@ export default function Login() {
           </Link>
         </Box>
          ) : (
-          <Box textAlign="center" margin=".5rem 0">
+          <Box textAlign="center" margin=".5rem 0" color={"white"}>
             Already have a profile?{" "}
             <Link
               style={{ textDecoration: "none", cursor: "pointer" }}
